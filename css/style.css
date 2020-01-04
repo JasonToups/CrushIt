@@ -35,9 +35,10 @@ button {
   background-color: cornflowerblue;
   border-radius: 5px;
   box-shadow: 2px 5px 10px whitesmoke inset;
+  /* display: flex; */
   /* background-image: linear-gradient(cornflowerblue, lightskyblue); */
 }
 
 .row div {
-  display: flex;
+  /* display: flex; */
 }

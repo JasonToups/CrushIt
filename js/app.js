@@ -32,12 +32,12 @@ const generateGameBoardArray = (width, height) => {
   // take the width passed as an argument
   let gameBoardArray = [];
   // loop through the width
-  for (let i = 0; i < width; i++) {
-    // The width will be the x limit
+  for (let i = 0; i < height; i++) {
+    // The height will be the y limit
     // console.log(`width = ${i}`);
     let gameBoardArrayHeight = [];
-    for (let j = 0; j < height; j++) {
-      // within each x index, there should be a height length array pushed to each x index.
+    for (let j = 0; j < width; j++) {
+      // within each y index, there should be a width length array pushed to each x index.
       // console.log(`height = ${j}`);
       gameBoardArrayHeight.push(new Square);
     }
@@ -48,7 +48,12 @@ const generateGameBoardArray = (width, height) => {
   return Game.board;
 }
 
-/* ---- UNDER CONSTRUCTION ----- */
+const applyRandomColor = () => {
+  const colors = ['cornflowerblue', 'cornflowerblue', 'cornflowerblue', 'darkseagreen', 'turquoise', 'violet', 'gold', 'tomato'];
+  const index = Math.floor(Math.random() * colors.length)
+  return colors[index];
+}
+
 const refreshBoardDOM = () => {
   // to put the gameboard on the DOM
   // loop through the gameboard
@@ -58,13 +63,14 @@ const refreshBoardDOM = () => {
   for (let i = 0; i < Game.board.length; i++) {
     console.log('row dom loop working')
     // // for each index in the gameboard loop through the array
-    $squares.append($row);
-    for (let j = 0; j < Game.board[i].length; j++) {
-      console.log('column dom loop working')
-      $('.row').append($square.clone());
-      // // // at each array in the gameboard index, create a div in the div squares class
+    $square.css('background-color', applyRandomColor());
+    $row.append($square.clone());
+  }
 
-    }
+  for (let j = 0; j < Game.board[0].length; j++) {
+    console.log('column dom loop working')
+    $squares.append($row.clone());
+    // // // at each array in the gameboard index, create a div in the div squares class
   }
 }
 
@@ -78,7 +84,7 @@ const createSquares = (numberOfSquares) => {
 }
 
 const gameStart = () => {
-  generateGameBoardArray(5, 4);
+  generateGameBoardArray(5, 10);
   refreshBoardDOM();
 }
 
