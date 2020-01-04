@@ -23,6 +23,7 @@ class Game {
 $('button').on('click', () => {
   console.log('Game Start');
   gameStart();
+  console.log(Game.board);
   // setTimer();
 });
 
@@ -52,11 +53,15 @@ const refreshBoardDOM = () => {
   // to put the gameboard on the DOM
   // loop through the gameboard
   const $squares = $('.squares');
+  const $row = $('<div class="row"/>');
+  const $square = $('<div class="square"/>');
   for (let i = 0; i < Game.board.length; i++) {
-    const $square = $('<div class="square"/>');
+    console.log('row dom loop working')
     // // for each index in the gameboard loop through the array
+    $squares.append($row);
     for (let j = 0; j < Game.board[i].length; j++) {
-      const $square = $('<div class="square"/>');
+      console.log('column dom loop working')
+      $('.row').append($square.clone());
       // // // at each array in the gameboard index, create a div in the div squares class
 
     }
@@ -74,6 +79,7 @@ const createSquares = (numberOfSquares) => {
 
 const gameStart = () => {
   generateGameBoardArray(5, 4);
+  refreshBoardDOM();
 }
 
 // console.log(gameBoardArray);
