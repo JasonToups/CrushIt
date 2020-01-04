@@ -16,6 +16,7 @@ class Game {
   constructor() {
     this.score = 0;
     this.matchGoal = "";
+    this.board = [];
   }
 }
 
@@ -41,10 +42,35 @@ const generateGameBoardArray = (width, height) => {
     }
     gameBoardArray.push(gameBoardArrayHeight);
   }
-  console.log(gameBoardArray);
-  return gameBoardArray;
+  Game.board = gameBoardArray
+  // console.log(gameBoardArray);
+  return Game.board;
 }
 
+/* ---- UNDER CONSTRUCTION ----- */
+const refreshBoardDOM = () => {
+  // to put the gameboard on the DOM
+  // loop through the gameboard
+  const $squares = $('.squares');
+  for (let i = 0; i < Game.board.length; i++) {
+    const $square = $('<div class="square"/>');
+    // // for each index in the gameboard loop through the array
+    for (let j = 0; j < Game.board[i].length; j++) {
+      const $square = $('<div class="square"/>');
+      // // // at each array in the gameboard index, create a div in the div squares class
+
+    }
+  }
+}
+
+const createSquares = (numberOfSquares) => {
+  const $squares = $('.squares');
+  for (let i = 1; i <= numberOfSquares; i++) {
+    const $square = $('<div class="square"/>');
+    $square.css('background-color', applyRandomColor())
+    $squares.append($square);
+  }
+}
 
 const gameStart = () => {
   generateGameBoardArray(5, 4);
