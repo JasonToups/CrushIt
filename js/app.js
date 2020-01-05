@@ -32,11 +32,11 @@ const generateGameBoardArray = (width, height) => {
   // take the width passed as an argument
   let gameBoardArray = [];
   // loop through the width
-  for (let i = 0; i < height; i++) {
+  for (let i = 0; i < width; i++) {
     // The height will be the y limit
     // console.log(`width = ${i}`);
     let gameBoardArrayHeight = [];
-    for (let j = 0; j < width; j++) {
+    for (let j = 0; j < height; j++) {
       // within each y index, there should be a width length array pushed to each x index.
       // console.log(`height = ${j}`);
       gameBoardArrayHeight.push(new Square);
@@ -53,7 +53,8 @@ const applyRandomColor = () => {
   const index = Math.floor(Math.random() * colors.length)
   return colors[index];
 }
-
+/* -- Somewhat working code --- */
+/* -- The rows are identical, random colors not working --- */
 const refreshBoardDOM = () => {
   // to put the gameboard on the DOM
   // loop through the gameboard
@@ -65,14 +66,17 @@ const refreshBoardDOM = () => {
     // // for each index in the gameboard loop through the array
     $square.css('background-color', applyRandomColor());
     $row.append($square.clone());
+    // $row.append($square);
   }
 
   for (let j = 0; j < Game.board[0].length; j++) {
     console.log('column dom loop working')
     $squares.append($row.clone());
+    // $squares.append($row);
     // // // at each array in the gameboard index, create a div in the div squares class
   }
 }
+
 
 const createSquares = (numberOfSquares) => {
   const $squares = $('.squares');
@@ -83,9 +87,16 @@ const createSquares = (numberOfSquares) => {
   }
 }
 
+
+const updateSquareColors = () => {
+  $('.square').each(function () {
+    $(this).css('background-color', applyRandomColor());
+  })
+}
+
 const gameStart = () => {
   generateGameBoardArray(5, 10);
   refreshBoardDOM();
+  updateSquareColors();
 }
 
-// console.log(gameBoardArray);

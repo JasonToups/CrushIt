@@ -1,17 +1,22 @@
 body {
-  /* background-color: cornflowerblue; */
+  background-color: whitesmoke;
   font-family: 'Open Sans', sans-serif;
 }
 
 header {
-  width: 100%;
-  display: block;
-  height: 100px;
-  background-image: linear-gradient(pink, lightpink);
-  margin-bottom: 1%;
-  padding-bottom: 1%;
-  padding-left: 1.5%;
-  border-radius: 5px;
+  width: auto;
+  height: 131px;
+  margin-bottom: 10px;
+  border-radius: 0px 0px 32px 32px;
+  box-shadow: 0 3px 0px grey;
+  border-style: solid;
+  border-width: 6px;
+  border-image-source: linear-gradient(to bottom, #ffc0c0, #979797 99%);
+  border-image-slice: 1;
+  background-image: linear-gradient(to bottom, #ffc0c0, #ffc0c0), linear-gradient(to bottom, #ffc0c0, #979797 99%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+
 }
 
 button {
@@ -19,15 +24,14 @@ button {
   margin-right: 50%;
   font-size: 20px;
   border-radius: 25px;
-  /* border-style: ridge; */
   background-color: mediumseagreen;
   color: white;
   box-shadow: 0px 3px 5px lightgreen inset;
   padding: 1%;
-  /* box-shadow: 0px 1px 2px whitesmoke; */
 }
 
-.squares div {
+/* -- this is the model, but it's not centered */
+/* .squares div {
   width: 5vh;
   height: 5vh;
   margin-right: 1%;
@@ -35,10 +39,35 @@ button {
   background-color: cornflowerblue;
   border-radius: 5px;
   box-shadow: 2px 5px 10px whitesmoke inset;
-  /* display: flex; */
-  /* background-image: linear-gradient(cornflowerblue, lightskyblue); */
+} */
+
+.squares div {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+.square {
+  /* width: 100px;
+  height: 50px;
+  padding: 15px;
+  border-radius: 15px;
+  box-shadow: 2px 5px 10px whitesmoke inset; */
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border-radius: 7px;
+  box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65);
 }
 
 .row div {
-  /* display: flex; */
+  /* padding: 10px; */
+  /* margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center; */
 }
