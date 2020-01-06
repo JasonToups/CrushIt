@@ -24,30 +24,8 @@ let game = {
 $('button').on('click', () => {
   console.log('Game Start');
   gameStart();
-  console.log(game.board);
   setTimer();
 });
-
-const generateGameBoardArray = () => {
-  // to generate the gameboard array
-  // take the width passed as an argument
-  let gameBoardArray = [];
-  // loop through the width
-  for (let i = 0; i < game.boardWidth; i++) {
-    // The height will be the y limit
-    // console.log(`width = ${i}`);
-    let gameBoardArrayHeight = [];
-    for (let j = 0; j < game.boardHeight; j++) {
-      // within each y index, there should be a width length array pushed to each x index.
-      // console.log(`height = ${j}`);
-      gameBoardArrayHeight.push(new Square);
-    }
-    gameBoardArray.push(gameBoardArrayHeight);
-  }
-  game.board = gameBoardArray
-  // console.log(gameBoardArray);
-  return game.board;
-}
 
 const applyRandomColor = () => {
   const colors = ['cornflowerblue', 'cornflowerblue', 'cornflowerblue', 'darkseagreen', 'turquoise', 'violet', 'gold', 'tomato'];
@@ -55,15 +33,15 @@ const applyRandomColor = () => {
   return colors[index];
 }
 
-
-const refreshBoardDOM = () => {
+/* This creates the Divs for the gameboard */
+const generateGameBoard = () => {
   // to put the gameboard on the DOM
   // loop through the gameboard
   const $squares = $('.squares');
   const $row = $('<div class="row"/>');
   const $square = $('<div class="square"/>');
   for (let i = 0; i < game.boardWidth; i++) {
-    console.log('row dom loop working')
+    // console.log('row dom loop working')
     // // for each index in the gameboard loop through the array
     $square.css('background-color', applyRandomColor());
     $row.append($square.clone());
@@ -71,30 +49,21 @@ const refreshBoardDOM = () => {
   }
 
   for (let j = 0; j < game.boardHeight; j++) {
-    console.log('column dom loop working')
+    // console.log('column dom loop working')
     $squares.append($row.clone());
     // $squares.append($row);
     // // // at each array in the gameboard index, create a div in the div squares class
   }
 }
 
-
-const createSquares = (numberOfSquares) => {
-  const $squares = $('.squares');
-  for (let i = 1; i <= numberOfSquares; i++) {
-    const $square = $('<div class="square"/>');
-    $square.css('background-color', applyRandomColor())
-    $squares.append($square);
-  }
-}
-
-
+/* This randomizes the .square colors */
 const updateSquareColors = () => {
   $('.square').each(function () {
     $(this).css('background-color', applyRandomColor());
   })
 }
 
+/* BUG - This is not stopping the timer once it reaches 0 */
 const setTimer = () => {
   // function to run, time interval
   const timer = setInterval(() => {
@@ -114,12 +83,10 @@ const updateTime = () => {
 }
 
 const gameStart = () => {
-  generateGameBoardArray(5, 10);
-  refreshBoardDOM();
+  generateGameBoard();
   updateSquareColors();
   let goalColor = applyRandomColor()
   game.matchGoal = goalColor;
-  /* BUG - the goal square is not updating to the goalColor */
   $('.goal-square').css('background-color', goalColor);
 }
 
