@@ -1,11 +1,13 @@
 body {
   background-color: #EAEAEA;
   font-family: 'Suez One', serif;
+  text-align: center;
+  font-size: 23px;
 }
 
 header {
   width: auto;
-  height: 131px;
+  height: 137px;
   margin-top: -10px;
   margin-bottom: 10px;
   border-radius: 0px 0px 32px 32px;
@@ -25,9 +27,7 @@ h1 {
   text-align: center;
 }
 
-span {
-  margin: auto;
-}
+
 
 button {
   margin: auto;
@@ -58,7 +58,14 @@ button {
 }
 
 
-
+.goal-square {
+  /* display: inline; */
+  width: 22px;
+  height: 22px;
+  /* margin: 5px; */
+  border-radius: 7px;
+  box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65);
+}
 
 .square {
   /* width: 100px;
