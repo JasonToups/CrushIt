@@ -7,6 +7,8 @@ let game = {
   'goalColor': "",
   'timer': 30,
   'board': [],
+  'currentMatch1': [],
+  'currentMatch2': [],
 }
 
 
@@ -23,8 +25,6 @@ const handlePoke = (event) => {
   compareColors(color, game.goalColor);
 }
 
-/* This checks if the color of the current square matches the game.goalColor*/
-
 // Accepts two parameters to compare colors.
 const compareColors = (color, validate) => {
   const colorValues = color.substring(4, color.length - 1).split(', ');
@@ -40,6 +40,9 @@ const compareColors = (color, validate) => {
 };
 
 $('.squares').on('click', '.square', handlePoke);
+
+/* Write Recursive function that validates the colors in all cardinal directions of the current square, and returns an array of matchable items to the game object in game.currentMatch1 and game.currentMatch2 */
+
 
 const applyRandomColor = () => {
   const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'];
