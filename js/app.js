@@ -1,25 +1,14 @@
 console.log('got some js!');
 
-class Square {
-  constructor(color, divClass) {
-    this.color = this.applyRandomColor();
-    this.divClass = '<div class="square"/>';
-  }
-  applyRandomColor() {
-    const colors = ['cornflowerblue', 'cornflowerblue', 'cornflowerblue', 'darkseagreen', 'turquoise', 'violet', 'gold', 'tomato'];
-    const index = Math.floor(Math.random() * colors.length)
-    return colors[index];
-  }
-}
-
 let game = {
-  'boardWidth': 7,
+  'boardWidth': 5,
   'boardHeight': 10,
   'score': 0,
-  'matchGoal': "",
+  'goalColor': "",
   'timer': 30,
   'board': [],
 }
+
 
 $('button').on('click', () => {
   console.log('Game Start');
@@ -27,8 +16,33 @@ $('button').on('click', () => {
   setTimer();
 });
 
+const handlePoke = (event) => {
+  console.log(event.target);
+  const color = $(event.target).css('background-color');
+  $(event.target).addClass('poked').css('opacity', 0.3);
+  compareColors(color, game.goalColor);
+}
+
+/* This checks if the color of the current square matches the game.goalColor*/
+
+// Accepts two parameters to compare colors.
+const compareColors = (color, validate) => {
+  const colorValues = color.substring(4, color.length - 1).split(', ');
+  const validateValues = validate.substring(4, validate.length - 1).split(', ');
+  if (colorValues[0] === validateValues[0] && colorValues[1] === validateValues[1] && colorValues[2] === validateValues[2]) {
+    console.log('got the same color!');
+    score++
+    // $('h1').text(`Scoreboard: ${score}`)
+  } else {
+    score--
+    // $('h1').text(`Scoreboard: ${score}`)
+  }
+};
+
+$('.squares').on('click', '.square', handlePoke);
+
 const applyRandomColor = () => {
-  const colors = ['cornflowerblue', 'cornflowerblue', 'cornflowerblue', 'darkseagreen', 'turquoise', 'violet', 'gold', 'tomato'];
+  const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'];
   const index = Math.floor(Math.random() * colors.length)
   return colors[index];
 }
@@ -85,8 +99,8 @@ const updateTime = () => {
 const gameStart = () => {
   generateGameBoard();
   updateSquareColors();
-  let goalColor = applyRandomColor()
-  game.matchGoal = goalColor;
-  $('.goal-square').css('background-color', goalColor);
+  let color = applyRandomColor()
+  game.goalColor = color;
+  $('.goal-square').css('background-color', color);
 }
 
