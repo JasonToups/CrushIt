@@ -13,19 +13,19 @@ class Square {
 }
 
 let game = {
-  'score': 0,
-  'matchGoal': "",
-  'board': [],
   'boardWidth': 5,
   'boardHeight': 10,
+  'score': 0,
+  'matchGoal': "",
+  'timer': 30,
+  'board': [],
 }
 
 $('button').on('click', () => {
   console.log('Game Start');
   gameStart();
   console.log(game.board);
-  game.matchGoal = applyRandomColor();
-  // setTimer();
+  setTimer();
 });
 
 const generateGameBoardArray = () => {
@@ -54,8 +54,8 @@ const applyRandomColor = () => {
   const index = Math.floor(Math.random() * colors.length)
   return colors[index];
 }
-/* -- Somewhat working code --- */
-/* -- The rows are identical, random colors not working --- */
+
+
 const refreshBoardDOM = () => {
   // to put the gameboard on the DOM
   // loop through the gameboard
@@ -95,9 +95,31 @@ const updateSquareColors = () => {
   })
 }
 
+const setTimer = () => {
+  // function to run, time interval
+  const timer = setInterval(() => {
+    // console.log(game.timer);
+    if (game.timer <= 0) {
+      // used to stop SetInterval
+      clearInterval(game.timer);
+      if (game.timer > 0) setTimer();
+    }
+    updateTime();
+    game.timer--;
+  }, 1000);
+}
+
+const updateTime = () => {
+  $('#timerTime').text(`${game.timer}`);
+}
+
 const gameStart = () => {
   generateGameBoardArray(5, 10);
   refreshBoardDOM();
   updateSquareColors();
+  let goalColor = applyRandomColor()
+  game.matchGoal = goalColor;
+  /* BUG - the goal square is not updating to the goalColor */
+  $('.goal-square').css('background-color', goalColor);
 }
 

@@ -59,6 +59,7 @@ button {
 
 
 .goal-square {
+  /* BUG - The goal square should appear to the right of the Goal UI Element */
   /* display: inline; */
   width: 22px;
   height: 22px;
