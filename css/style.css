@@ -1,11 +1,12 @@
 body {
   background-color: #EAEAEA;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Suez One', serif;
 }
 
 header {
   width: auto;
   height: 131px;
+  margin-top: -10px;
   margin-bottom: 10px;
   border-radius: 0px 0px 32px 32px;
   box-shadow: 0 3px 0px grey;
@@ -19,9 +20,17 @@ header {
 
 }
 
+h1 {
+  margin-top: auto;
+  text-align: center;
+}
+
+span {
+  margin: auto;
+}
+
 button {
-  float: right;
-  margin-right: 50%;
+  margin: auto;
   font-size: 20px;
   border-radius: 25px;
   background-color: mediumseagreen;

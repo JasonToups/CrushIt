@@ -12,40 +12,41 @@ class Square {
   }
 }
 
-class Game {
-  constructor() {
-    this.score = 0;
-    this.matchGoal = "";
-    this.board = [];
-  }
+let game = {
+  'score': 0,
+  'matchGoal': "",
+  'board': [],
+  'boardWidth': 5,
+  'boardHeight': 10,
 }
 
 $('button').on('click', () => {
   console.log('Game Start');
   gameStart();
-  console.log(Game.board);
+  console.log(game.board);
+  game.matchGoal = applyRandomColor();
   // setTimer();
 });
 
-const generateGameBoardArray = (width, height) => {
+const generateGameBoardArray = () => {
   // to generate the gameboard array
   // take the width passed as an argument
   let gameBoardArray = [];
   // loop through the width
-  for (let i = 0; i < width; i++) {
+  for (let i = 0; i < game.boardWidth; i++) {
     // The height will be the y limit
     // console.log(`width = ${i}`);
     let gameBoardArrayHeight = [];
-    for (let j = 0; j < height; j++) {
+    for (let j = 0; j < game.boardHeight; j++) {
       // within each y index, there should be a width length array pushed to each x index.
       // console.log(`height = ${j}`);
       gameBoardArrayHeight.push(new Square);
     }
     gameBoardArray.push(gameBoardArrayHeight);
   }
-  Game.board = gameBoardArray
+  game.board = gameBoardArray
   // console.log(gameBoardArray);
-  return Game.board;
+  return game.board;
 }
 
 const applyRandomColor = () => {
@@ -61,7 +62,7 @@ const refreshBoardDOM = () => {
   const $squares = $('.squares');
   const $row = $('<div class="row"/>');
   const $square = $('<div class="square"/>');
-  for (let i = 0; i < Game.board.length; i++) {
+  for (let i = 0; i < game.boardWidth; i++) {
     console.log('row dom loop working')
     // // for each index in the gameboard loop through the array
     $square.css('background-color', applyRandomColor());
@@ -69,7 +70,7 @@ const refreshBoardDOM = () => {
     // $row.append($square);
   }
 
-  for (let j = 0; j < Game.board[0].length; j++) {
+  for (let j = 0; j < game.boardHeight; j++) {
     console.log('column dom loop working')
     $squares.append($row.clone());
     // $squares.append($row);
