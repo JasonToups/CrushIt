@@ -13,7 +13,7 @@ class Square {
 }
 
 let game = {
-  'boardWidth': 5,
+  'boardWidth': 7,
   'boardHeight': 10,
   'score': 0,
   'matchGoal': "",
@@ -110,7 +110,7 @@ const setTimer = () => {
 }
 
 const updateTime = () => {
-  $('#timerTime').text(`${game.timer}`);
+  $('#timerNumber').text(`${game.timer}`);
 }
 
 const gameStart = () => {
