@@ -21,7 +21,7 @@ $('button').on('click', () => {
 /* -------- Handles Touch Event -------- */
 const handlePoke = (event) => {
   console.log(event.target);
-  // $(event.target).addClass('poked');
+  $(event.target).addClass('selected');
   $(event.target).addClass('animated heartBeat');
   /* Finding Current Index of Poke and Parent row ID */
   // let parent = parseInt($(event.target).parent().attr('id'));
