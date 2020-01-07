@@ -43,43 +43,83 @@ $('.squares').on('click', '.square', handlePoke);
 
 
 // If I can navigate up one .row and down one .row at the same index, I can compare the squares to validate the match
-const validateMatchArray = (matchArray) => {
-  for (let i = 0; i < matchArray.length; i++) {
+const validateMatchArray = () => {
+  let matchArray = game.matchArray;
+  /*  This is how this for loop should start */
+  // for (let i = 0; i < matchArray.length; i++) {
+
+  /* DEBUGGING FOR LOOP */
+
+  for (let i = 0; i < 5; i++) {
     /* Finding Current Index of Poke and Parent row ID */
-    let parent = parseInt($(matchArray).eq(i).parent().attr('id'));
-    let currentIndex = $(matchArray).eq(i).index();
+    console.log(`Match Array index ${i}`)
+    // let parent = parseInt($(matchArray).eq(i).parent().attr('id'));
+    let parent = parseInt($(matchArray[i]).parent().attr('id'));
+    let currentIndex = $(matchArray[i]).index();
     console.log(`row ${parent}`);
     // console.log(typeof parent);
     console.log(`column ${currentIndex}`);
-    let currentSquare = $(matchArray).eq(i);
+    // let currentSquare = $(matchArray).eq(i);
+    let currentSquare = matchArray[i];
     // console.log(typeof currentIndex);
     /* Getting the squares in 4 cardinal directions from the current index */
-    let parentBelow = $(`#${parent + 1}`).children().eq(currentIndex);
-    let parentAbove = $(`#${parent - 1}`).children().eq(currentIndex);
-    let indexLeft = $(`#${parent}`).children().eq(currentIndex).prev();
-    let indexRight = $(`#${parent}`).children().eq(currentIndex).next();
-    console.log('currentSquare');
-    console.log(currentSquare);
-    console.log('parentBelow');
-    console.log(parentBelow);
-    console.log('parentAbove');
-    console.log(parentAbove);
-    console.log('indexLeft');
-    console.log(indexLeft);
-    console.log('indexRight');
-    console.log(indexRight);
+    let squareAbove = $(`#${parent - 1}`).children().eq(currentIndex);
+    let squareBelow = $(`#${parent + 1}`).children().eq(currentIndex);
+    let squareLeft = $(`#${parent}`).children().eq(currentIndex).prev();
+    let squareRight = $(`#${parent}`).children().eq(currentIndex).next();
+    // console.log('currentSquare');
+    // console.log(currentSquare);
+    // console.log('squareAbove');
+    // console.log(squareAbove);
+    // console.log('squareBelow');
+    // console.log(squareBelow);
+    // console.log('squareLeft');
+    // console.log(squareLeft);
+    // console.log('squareRight');
+    // console.log(squareRight);
+
     /* Getting the background colors from the squares in 4 cardinal directions from the current index  */
     let currentSquareColor = ($(currentSquare).css('background-color'));
-    let parentBelowColor = ($(parentBelow).css('background-color'));
-    let parentAboveColor = ($(parentAbove).css('background-color'));
-    let indexLeftColor = ($(indexLeft).css('background-color'));
-    let indexRightColor = ($(indexRight).css('background-color'));
-    console.log(`currentSquareColor = ${currentSquareColor}`);
-    console.log(`parentBelowColor = ${parentBelowColor}`);
-    console.log(`parentAboveColor = ${parentAboveColor}`);
-    console.log(`indexLeftColor = ${indexLeftColor}`);
-    console.log(`indexRightColor = ${indexRightColor}`);
+    let squareAboveColor = ($(squareAbove).css('background-color'));
+    let squareBelowColor = ($(squareBelow).css('background-color'));
+    let squareLeftColor = ($(squareLeft).css('background-color'));
+    let squareRightColor = ($(squareRight).css('background-color'));
+    // console.log(`currentSquareColor = ${currentSquareColor}`);
+    // console.log(`squareAboveColor = ${squareAboveColor}`);
+    // console.log(`squareBelowColor = ${squareBelowColor}`);
+    // console.log(`squareLeftColor = ${squareLeftColor}`);
+    // console.log(`squareRightColor = ${squareRightColor}`);
+
+    /* ----- Control Flow for Pushing Square Divs to Game Match Array ----- */
+    /* write includes() where it checks the game.matchArray and if the current div is already included, then skip it. 
+    Only new divs should appear in array */
+
+    /* BUG - The Loop is adding the same divs to the game.matchArray */
+
+    if (currentSquareColor === squareAboveColor && !game.matchArray.includes(squareAbove)) {
+      game.matchArray.push(squareAbove);
+    }
+
+    if (currentSquareColor === squareBelowColor && !game.matchArray.includes(squareBelow)) {
+      game.matchArray.push(squareBelow);
+    }
+
+    if (currentSquareColor === squareLeftColor && !game.matchArray.includes(squareLeft)) {
+      game.matchArray.push(squareLeft);
+    }
+
+    if (currentSquareColor === squareRightColor && !game.matchArray.includes(squareRight)) {
+      game.matchArray.push(squareRight);
+    }
+
+    if (currentSquareColor !== squareAboveColor && currentSquareColor !== squareBelowColor && currentSquareColor !== squareLeftColor && currentSquareColor !== squareRightColor) {
+      return game.matchArray;
+    }
+
+    // console.log(game.matchArray);
+    console.log(`Game Match Array Length ${game.matchArray.length}`);
   }
+  return game.matchArray;
 }
 
 /* ----- Validates Match Between Two Squares ----- */
