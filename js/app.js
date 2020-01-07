@@ -47,12 +47,11 @@ const validateMatchArray = (matchArray) => {
   for (let i = 0; i < matchArray.length; i++) {
     /* Finding Current Index of Poke and Parent row ID */
     let parent = parseInt($(matchArray).eq(i).parent().attr('id'));
+    let currentIndex = $(matchArray).eq(i).index();
     console.log(`row ${parent}`);
     // console.log(typeof parent);
-    let currentIndex = $(matchArray).eq(i).index();
     console.log(`column ${currentIndex}`);
     let currentSquare = $(matchArray).eq(i);
-    console.log(`column ${currentIndex}`);
     // console.log(typeof currentIndex);
     /* Getting the squares in 4 cardinal directions from the current index */
     let parentBelow = $(`#${parent + 1}`).children().eq(currentIndex);
@@ -69,7 +68,7 @@ const validateMatchArray = (matchArray) => {
     console.log(indexLeft);
     console.log('indexRight');
     console.log(indexRight);
-
+    /* Getting the background colors from the squares in 4 cardinal directions from the current index  */
     let currentSquareColor = ($(currentSquare).css('background-color'));
     let parentBelowColor = ($(parentBelow).css('background-color'));
     let parentAboveColor = ($(parentAbove).css('background-color'));
