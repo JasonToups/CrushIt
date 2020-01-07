@@ -51,16 +51,35 @@ const validateMatchArray = (matchArray) => {
     // console.log(typeof parent);
     let currentIndex = $(matchArray).eq(i).index();
     console.log(`column ${currentIndex}`);
+    let currentSquare = $(matchArray).eq(i);
+    console.log(`column ${currentIndex}`);
     // console.log(typeof currentIndex);
     /* Getting the squares in 4 cardinal directions from the current index */
     let parentBelow = $(`#${parent + 1}`).children().eq(currentIndex);
     let parentAbove = $(`#${parent - 1}`).children().eq(currentIndex);
     let indexLeft = $(`#${parent}`).children().eq(currentIndex).prev();
     let indexRight = $(`#${parent}`).children().eq(currentIndex).next();
+    console.log('currentSquare');
+    console.log(currentSquare);
+    console.log('parentBelow');
     console.log(parentBelow);
+    console.log('parentAbove');
     console.log(parentAbove);
+    console.log('indexLeft');
     console.log(indexLeft);
+    console.log('indexRight');
     console.log(indexRight);
+
+    let currentSquareColor = ($(currentSquare).css('background-color'));
+    let parentBelowColor = ($(parentBelow).css('background-color'));
+    let parentAboveColor = ($(parentAbove).css('background-color'));
+    let indexLeftColor = ($(indexLeft).css('background-color'));
+    let indexRightColor = ($(indexRight).css('background-color'));
+    console.log(`currentSquareColor = ${currentSquareColor}`);
+    console.log(`parentBelowColor = ${parentBelowColor}`);
+    console.log(`parentAboveColor = ${parentAboveColor}`);
+    console.log(`indexLeftColor = ${indexLeftColor}`);
+    console.log(`indexRightColor = ${indexRightColor}`);
   }
 }
 
