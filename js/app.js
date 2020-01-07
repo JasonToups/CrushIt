@@ -7,7 +7,7 @@ let game = {
   'goalColor': "",
   'timer': 30,
   'board': [],
-  'currentMatch1': [],
+  'matchArray': [],
   'currentMatch2': [],
 }
 
@@ -18,11 +18,21 @@ $('button').on('click', () => {
   setTimer();
 });
 
-
+/* -------- Handles Touch Event -------- */
 const handlePoke = (event) => {
   console.log(event.target);
-  $(event.target).addClass('poked').css('opacity', 0.3);
-  console.log($(event.target).index());
+  // $(event.target).addClass('poked');
+  $(event.target).addClass('animated heartBeat');
+  /* Finding Current Index of Poke and Parent row ID */
+  // let parent = parseInt($(event.target).parent().attr('id'));
+  // console.log(parent);
+  // console.log(typeof parent);
+  // let currentIndex = $(event.target).index();
+  // console.log(currentIndex);
+  // console.log(typeof currentIndex);
+
+  /* Sending event target to game object */
+  game.matchArray.push(event.target);
   console.log(validateMatch(event.target, $('.goal-square')));
   return validateMatch(event.target, $('.goal-square'));
 }
@@ -33,7 +43,28 @@ $('.squares').on('click', '.square', handlePoke);
 
 
 // If I can navigate up one .row and down one .row at the same index, I can compare the squares to validate the match
+const validateMatchArray = (matchArray) => {
+  for (let i = 0; i < matchArray.length; i++) {
+    /* Finding Current Index of Poke and Parent row ID */
+    let parent = parseInt($(matchArray).eq(i).parent().attr('id'));
+    console.log(`row ${parent}`);
+    // console.log(typeof parent);
+    let currentIndex = $(matchArray).eq(i).index();
+    console.log(`column ${currentIndex}`);
+    // console.log(typeof currentIndex);
+    /* Getting the squares in 4 cardinal directions from the current index */
+    let parentBelow = $(`#${parent + 1}`).children().eq(currentIndex);
+    let parentAbove = $(`#${parent - 1}`).children().eq(currentIndex);
+    let indexLeft = $(`#${parent}`).children().eq(currentIndex).prev();
+    let indexRight = $(`#${parent}`).children().eq(currentIndex).next();
+    console.log(parentBelow);
+    console.log(parentAbove);
+    console.log(indexLeft);
+    console.log(indexRight);
+  }
+}
 
+/* ----- Validates Match Between Two Squares ----- */
 const validateMatch = (square1, square2) => {
   console.log('validate match function');
   const current = $(square1).css('background-color');
