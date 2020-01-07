@@ -1,5 +1,3 @@
-console.log('got some js!');
-
 let game = {
   'boardWidth': 7,
   'boardHeight': 10,
@@ -34,6 +32,7 @@ const handlePoke = (event) => {
   /* Sending event target to game object */
   game.matchArray.push(event.target);
   console.log(validateMatch(event.target, $('.goal-square')));
+  validateMatchArray();
   return validateMatch(event.target, $('.goal-square'));
 }
 
@@ -44,13 +43,13 @@ $('.squares').on('click', '.square', handlePoke);
 
 // If I can navigate up one .row and down one .row at the same index, I can compare the squares to validate the match
 const validateMatchArray = () => {
+  console.log('Validate Match Array Function Start');
   let matchArray = game.matchArray;
   /*  This is how this for loop should start */
-  // for (let i = 0; i < matchArray.length; i++) {
+  // for (let i = 0; i <= matchArray.length; i++) {
 
   /* DEBUGGING FOR LOOP */
-
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     /* Finding Current Index of Poke and Parent row ID */
     console.log(`Match Array index ${i}`)
     // let parent = parseInt($(matchArray).eq(i).parent().attr('id'));
@@ -63,10 +62,14 @@ const validateMatchArray = () => {
     let currentSquare = matchArray[i];
     // console.log(typeof currentIndex);
     /* Getting the squares in 4 cardinal directions from the current index */
-    let squareAbove = $(`#${parent - 1}`).children().eq(currentIndex);
-    let squareBelow = $(`#${parent + 1}`).children().eq(currentIndex);
-    let squareLeft = $(`#${parent}`).children().eq(currentIndex).prev();
-    let squareRight = $(`#${parent}`).children().eq(currentIndex).next();
+    /* somewhat working code */
+    // let squareAbove = $(`#${parent > 0 ? parent - 1 : parent}`).children().eq(currentIndex);
+    // let squareBelow = $(`#${parent <= game.boardHeight ? parent + 1 : parent}`).children().eq(currentIndex);
+    let squareAbove = $(`#${parent > 0 ? parent - 1 : false}`).children().eq(currentIndex);
+    let squareBelow = $(`#${parent < game.boardHeight ? parent + 1 : false}`).children().eq(currentIndex);
+    // let squareLeft = $(`#${parent}`).children().eq(currentIndex > 0 ? currentIndex : false).prev();
+    let squareLeft = currentIndex > 0 ? $(`#${parent}`).children().eq(currentIndex).prev() : false;
+    let squareRight = currentIndex < game.boardWidth ? $(`#${parent}`).children().eq(currentIndex).next() : false;
     // console.log('currentSquare');
     // console.log(currentSquare);
     // console.log('squareAbove');
@@ -94,33 +97,45 @@ const validateMatchArray = () => {
     /* write includes() where it checks the game.matchArray and if the current div is already included, then skip it. 
     Only new divs should appear in array */
 
-    /* BUG - The Loop is adding the same divs to the game.matchArray */
+    /* -- When defining the variables used below, if the square is on the boarder it should return False */
+    $(currentSquare).addClass('match');
 
-    if (currentSquareColor === squareAboveColor && !game.matchArray.includes(squareAbove)) {
-      game.matchArray.push(squareAbove);
+    if (squareAbove) {
+      if (currentSquareColor === squareAboveColor && !game.matchArray.includes(squareAbove) && !$(squareAbove).hasClass("match")) {
+        $(squareAbove).addClass('match');
+        game.matchArray.push(squareAbove);
+      }
     }
-
-    if (currentSquareColor === squareBelowColor && !game.matchArray.includes(squareBelow)) {
-      game.matchArray.push(squareBelow);
+    if (squareBelow) {
+      if (currentSquareColor === squareBelowColor && !game.matchArray.includes(squareBelow) && !$(squareBelow).hasClass("match")) {
+        $(squareBelow).addClass('match');
+        game.matchArray.push(squareBelow);
+      }
     }
-
-    if (currentSquareColor === squareLeftColor && !game.matchArray.includes(squareLeft)) {
-      game.matchArray.push(squareLeft);
+    if (squareLeft) {
+      if (currentSquareColor === squareLeftColor && !game.matchArray.includes(squareLeft) && !$(squareLeft).hasClass("match")) {
+        $(squareLeft).addClass('match');
+        game.matchArray.push(squareLeft);
+      }
     }
-
-    if (currentSquareColor === squareRightColor && !game.matchArray.includes(squareRight)) {
-      game.matchArray.push(squareRight);
+    if (squareRight) {
+      if (currentSquareColor === squareRightColor && !game.matchArray.includes(squareRight) && !$(squareRight).hasClass("match")) {
+        $(squareRight).addClass('match');
+        game.matchArray.push(squareRight);
+      }
     }
+    /* Everything in the fuction is working up until the closing statement. This mess below doesn't work */
+    /* BUG - Cleanup this mess */
+    // if ((currentSquareColor !== squareAboveColor || currentSquareColor === squareAboveColor && $(squareAbove).hasClass("match")) && (currentSquareColor !== squareBelowColor || currentSquareColor === squareBelowColor && $(squareBelow).hasClass("match")) && (currentSquareColor !== squareLeftColor || currentSquareColor === squareLeftColor && $(squareLeft).hasClass("match")) && (currentSquareColor !== squareRightColor || currentSquareColor === squareRightColor && $(squareRight).hasClass("match"))) {
+    //   return game.matchArray;
+    // }
 
-    if (currentSquareColor !== squareAboveColor && currentSquareColor !== squareBelowColor && currentSquareColor !== squareLeftColor && currentSquareColor !== squareRightColor) {
-      return game.matchArray;
-    }
-
-    // console.log(game.matchArray);
+    console.log(game.matchArray);
     console.log(`Game Match Array Length ${game.matchArray.length}`);
   }
+  console.log(game.matchArray);
   return game.matchArray;
-}
+};
 
 /* ----- Validates Match Between Two Squares ----- */
 const validateMatch = (square1, square2) => {
@@ -136,10 +151,13 @@ const validateMatch = (square1, square2) => {
   } else {
     return false;
   }
-}
+};
 
 const applyRandomColor = () => {
-  const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'];
+  /* ---- This is the array of colors I want to use in the game */
+  // const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'];
+  /* ---- This is the array of colors I'm using for debugging the game.matchArray Loop ----- */
+  const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)'];
   const index = Math.floor(Math.random() * colors.length)
   return colors[index];
 }
