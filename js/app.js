@@ -5,8 +5,7 @@ let game = {
   'goalColor': "",
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 5,
-  'timer': 30,
-  'board': [],
+  'time': 10,
   'matchArray': [],
 }
 
@@ -154,23 +153,29 @@ const updateSquareColors = () => {
   })
 }
 
-/* BUG - This is not stopping the timer once it reaches 0 */
+/* ------ Starts the game timer ------ */
+/* Value is stored in game.time */
+// When the time is up, send to gameController()
+// If Goal has been met, new round should begin with increasing difficulty
+// If Goal has not been met, game over screen with score.
 const setTimer = () => {
-  // function to run, time interval
+  // function to run , time interval
   const timer = setInterval(() => {
-    // console.log(game.timer);
-    if (game.timer <= 0) {
-      // used to stop SetInterval
-      clearInterval(game.timer);
-      if (game.timer > 0) setTimer();
+    console.log(game.time)
+    if (game.time === 0) {
+      // used to stop setInterval
+      /* Still need to write gameController function */
+      // gameController();
+      clearInterval(timer);
+      if (game.time > 0) setTimer();
     }
     updateTime();
-    game.timer--;
+    game.time--;
   }, 1000);
 }
 
 const updateTime = () => {
-  $('#timerNumber').text(`${game.timer}`);
+  $('#timerNumber').text(`${game.time}`);
 }
 
 const gameStart = () => {
