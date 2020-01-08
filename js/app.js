@@ -4,7 +4,10 @@ let game = {
   'score': 0,
   'scoreMultiplier': 2,
   'goalColor': "",
-  'goalNumber': 25,
+  'goalNumber': 20,
+  'goalCurrentNumber' : 0,
+  'goalTotalNumber': 0,
+  'round': 1,
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
   'time': 30,
@@ -46,7 +49,8 @@ const scoring = () => {
       if (validateMatch(game.matchArray[i], $('.goal-square'))) {
         game.score += game.scoreMultiplier;
         $('#scoreNumber').text(`${game.score}`);
-        game.goalNumber--;
+        game.goalCurrentNumber--;
+        game.goalTotalNumber++;
         $('#goalNumber').text(`${game.goalNumber}`);
         $(game.matchArray[i]).removeClass('match');
         applyRandomColor(game.matchArray[i]);
@@ -222,12 +226,18 @@ const updateTime = () => {
 // If Goal has not been met, game over screen with score.
 
 const gameController = () => {
+// if game.time === 0
+// // check for endgame condition, if game.round > 1, success endcard, include game.goalTotalNumber & game.round in the endcard
+// // // if 1 then failure endcard, include difference between game.goalNumber & game.goalCurrentNumber in the endcard text.
+// if game.goalCurrentNumber === 0
+// // reset timer, update game.goal color, add one to game.scoreMultiplier, remove 1 from game.boardWidth & game.boardHeight, add 1 to game.round, generate gameboard()  
 };
 
 const gameStart = () => {
   generateGameBoard();
   let color = applyRandomColor();
   game.goalColor = color;
+  game.goalCurrentNumber = game.goalNumber;
   $('#goalNumber').text(`${game.goalNumber}`);
   $('.goal-square').css('background-color', color);
 }
