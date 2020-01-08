@@ -3,6 +3,7 @@ let game = {
   'boardHeight': 10,
   'score': 0,
   'goalColor': "",
+  'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 5,
   'timer': 30,
   'board': [],
@@ -121,16 +122,16 @@ const validateMatch = (square1, square2) => {
   }
 };
 
-/* -- this will apply a random color from the color array -- */
-/* It should use the number from game.numOfColors */
+/* -- Chooses a random color from the color array -- */
+/* Colors are stored in game.colors */
+/* It should use the number from game.numOfColors as an argument. */
 const applyRandomColor = (number) => {
-  /* ---- This is the array of colors I want to use in the game */
-  const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'];
-  const colorsSlice = colors.slice(0, number);
+  const colorsSlice = game.colors.slice(0, number);
   const index = Math.floor(Math.random() * colorsSlice.length)
   return colorsSlice[index];
 }
 /* ------- Creating the Game Board ------- */
+/* It uses the dimensions from the game.boardWidth & game.boardHeight to determine board size */
 const generateGameBoard = () => {
   const $squares = $('.squares');
   for (let i = 0; i < game.boardHeight; i++) {
