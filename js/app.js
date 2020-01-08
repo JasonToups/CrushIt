@@ -2,10 +2,12 @@ let game = {
   'boardWidth': 7,
   'boardHeight': 10,
   'score': 0,
+  'scoreMultiplier': 2,
   'goalColor': "",
+  'goalNumber': 25,
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
-  'numOfColors': 5,
-  'time': 10,
+  'numOfColors': 3,
+  'time': 30,
   'matchArray': [],
 }
 
@@ -31,10 +33,45 @@ const handlePoke = (event) => {
 
 $('.squares').on('click', '.square', handlePoke);
 
-/* Write Recursive function that validates the colors in all cardinal directions of the current square, and returns an array of matchable items to the game object in game.currentMatch1 and game.currentMatch2 */
+/* -------- Scoring ---------- */
+/* When matches are made and sent to the game.matchArray. 
+After the function runs, it should invoke the scoring function.
+The scoring() will take no parameters, but will use the game.matchArray.
+It will loop through the array and check for the background color of each index in the array.
+If the index color is the same as the goal color, then each block point will be multiplied by the game.pointMultiplier
+Otherwise each block is worth 1 point.*/
+const scoring = () => {
+  if (game.matchArray.length >= 3) {
+    for (let i = 0; i < game.matchArray.length; i++) {
+      if (validateMatch(game.matchArray[i], $('.goal-square'))) {
+        game.score += game.scoreMultiplier;
+        $('#scoreNumber').text(`${game.score}`);
+        game.goalNumber--;
+        $('#goalNumber').text(`${game.goalNumber}`);
+        $(game.matchArray[i]).removeClass('match');
+        applyRandomColor(game.matchArray[i]);
+        $(game.matchArray[i]).css('background-color', applyRandomColor());
+      } else {
+        game.score++;
+        $('#scoreNumber').text(`${game.score}`);
+        $(game.matchArray[i]).removeClass('match');
+        $(game.matchArray[i]).css('background-color', applyRandomColor());
+      }
+    }
+  } else {
+    for (let j = 0; j <= game.matchArray.length; j++) {
+      $(game.matchArray[j]).removeClass('match');
+      $(game.matchArray[j]).css('background-color', applyRandomColor());
+    }
+  }
+  game.matchArray = [];
+  gameController();
+}
 
+/* -------- Checking squares for Matches to fill the game.matchArray -------- */
+/* A Recursive function that validates the colors in all cardinal directions of the current square, and returns an array of matchable items to the game object*/
 
-//This function should accept 2 parameters, so i can pass in game.matchArray1, game.matchArray2, and pass in the class name i plan on appending to the div to control the recursive function, .match1, .match2
+//POSSIBLE UPDATE - This function should accept 2 parameters, so i can pass in game.matchArray1, game.matchArray2, and pass in the class name i plan on appending to the div to control the recursive function, .match1, .match2
 const validateMatchArray = () => {
   console.log('Validate Match Array Function Start');
   let matchArray = game.matchArray;
@@ -61,10 +98,10 @@ const validateMatchArray = () => {
     let squareRightColor = ($(squareRight).css('background-color'));
 
     /* ----- Control Flow for Pushing Square Divs to Game Match Array ----- */
-    /* write includes() where it checks the game.matchArray and if the current div is already included, then skip it. 
+    /* This section checks the game.matchArray and if the square div is already included, then it will be skipped. 
     Only new divs should appear in array */
 
-    /* -- When defining the variables used below, if the square is on the boarder it should return False */
+    /* -- When the variables used below were defined, if the square is on the boarder it should return False */
     $(currentSquare).addClass('match');
 
     let currentArrayLength = game.matchArray.length;
@@ -96,11 +133,14 @@ const validateMatchArray = () => {
     if (i === game.matchArray.length - 1) {
       console.log('Validate Match Array Function End');
       console.log(game.matchArray);
+      scoring();
       return game.matchArray;
     }
 
   }
+  /* I don't think this section ever runs */
   console.log(game.matchArray);
+  scoring();
   return game.matchArray;
 };
 
@@ -113,8 +153,6 @@ const validateMatch = (square1, square2) => {
   console.log(current);
   console.log(validate);
   if (current === validate) {
-    game.score++;
-    $('#scoreNumber').text(`${game.score}`);
     return true;
   } else {
     return false;
@@ -123,9 +161,9 @@ const validateMatch = (square1, square2) => {
 
 /* -- Chooses a random color from the color array -- */
 /* Colors are stored in game.colors */
-/* It should use the number from game.numOfColors as an argument. */
-const applyRandomColor = (number) => {
-  const colorsSlice = game.colors.slice(0, number);
+/* The number of colors are stored in game.numOfColors */
+const applyRandomColor = () => {
+  const colorsSlice = game.colors.slice(0, game.numOfColors);
   const index = Math.floor(Math.random() * colorsSlice.length)
   return colorsSlice[index];
 }
@@ -139,7 +177,7 @@ const generateGameBoard = () => {
     for (let j = 0; j < game.boardWidth; j++) {
       // console.log('appending a square');
       const $square = $('<div class="square"/>');
-      $square.css('background-color', applyRandomColor(game.numOfColors));
+      $square.css('background-color', applyRandomColor());
       $row.append($square);
     }
     $squares.append($row);
@@ -149,7 +187,7 @@ const generateGameBoard = () => {
 /* This randomizes all .square colors */
 const updateSquareColors = () => {
   $('.square').each(function () {
-    $(this).css('background-color', applyRandomColor(game.numOfColors));
+    $(this).css('background-color', applyRandomColor());
   })
 }
 
@@ -161,7 +199,6 @@ const updateSquareColors = () => {
 const setTimer = () => {
   // function to run , time interval
   const timer = setInterval(() => {
-    console.log(game.time)
     if (game.time === 0) {
       // used to stop setInterval
       /* Still need to write gameController function */
@@ -178,9 +215,19 @@ const updateTime = () => {
   $('#timerNumber').text(`${game.time}`);
 }
 
+
+
+/* --------- Game Controller --------- */
+// If Goal has been met, new round should begin with increasing difficulty
+// If Goal has not been met, game over screen with score.
+
+const gameController = () => {
+};
+
 const gameStart = () => {
   generateGameBoard();
-  let color = applyRandomColor(game.numOfColors);
+  let color = applyRandomColor();
   game.goalColor = color;
+  $('#goalNumber').text(`${game.goalNumber}`);
   $('.goal-square').css('background-color', color);
 }
