@@ -1,12 +1,12 @@
 let game = {
   'boardWidth': 7,
-  'boardHeight': 7,
+  'boardHeight': 10,
   'score': 0,
   'goalColor': "",
+  'numOfColors': 5,
   'timer': 30,
   'board': [],
   'matchArray': [],
-  'currentMatch2': [],
 }
 
 
@@ -21,7 +21,7 @@ const handlePoke = (event) => {
   console.log(event.target);
   $(event.target).addClass('selected');
   $(event.target).addClass('animated pulse infinite');
-  
+
   /* Sending event target to game object */
   game.matchArray.push(event.target);
   console.log(validateMatch(event.target, $('.goal-square')));
@@ -38,21 +38,21 @@ $('.squares').on('click', '.square', handlePoke);
 const validateMatchArray = () => {
   console.log('Validate Match Array Function Start');
   let matchArray = game.matchArray;
-  
+
   for (let i = 0; i <= matchArray.length; i++) {
     console.log(`Match Array index ${i}`);
     let parent = parseInt($(matchArray[i]).parent().attr('id'));
     let currentIndex = $(matchArray[i]).index();
     console.log(`row ${parent}`);
     console.log(`column ${currentIndex}`);
-    
+
     /* Getting the neighboring squares in 4 cardinal directions */
     let currentSquare = matchArray[i];
     let squareAbove = $(`#${parent > 0 ? parent - 1 : false}`).children().eq(currentIndex);
     let squareBelow = $(`#${parent < game.boardHeight ? parent + 1 : false}`).children().eq(currentIndex);
     let squareLeft = currentIndex > 0 ? $(`#${parent}`).children().eq(currentIndex).prev() : false;
     let squareRight = currentIndex < game.boardWidth ? $(`#${parent}`).children().eq(currentIndex).next() : false;
-    
+
     /* Getting the background colors from the squares in 4 cardinal directions from the current index  */
     let currentSquareColor = ($(currentSquare).css('background-color'));
     let squareAboveColor = ($(squareAbove).css('background-color'));
@@ -94,7 +94,8 @@ const validateMatchArray = () => {
       }
     }
     if (i === game.matchArray.length - 1) {
-      console.log('end of the loop');
+      console.log('Validate Match Array Function End');
+      console.log(game.matchArray);
       return game.matchArray;
     }
 
@@ -104,6 +105,7 @@ const validateMatchArray = () => {
 };
 
 /* ----- Validates Match Between Two Squares ----- */
+/* This can be used to verify that the game goal color matches a square color */
 const validateMatch = (square1, square2) => {
   console.log('validate match function');
   const current = $(square1).css('background-color');
@@ -120,13 +122,13 @@ const validateMatch = (square1, square2) => {
 };
 
 /* -- this will apply a random color from the color array -- */
-const applyRandomColor = () => {
+/* It should use the number from game.numOfColors */
+const applyRandomColor = (number) => {
   /* ---- This is the array of colors I want to use in the game */
-  // const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'];
-  /* ---- This is the array of colors I'm using for debugging the game.matchArray Loop ----- */
-  const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)'];
-  const index = Math.floor(Math.random() * colors.length)
-  return colors[index];
+  const colors = ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'];
+  const colorsSlice = colors.slice(0, number);
+  const index = Math.floor(Math.random() * colorsSlice.length)
+  return colorsSlice[index];
 }
 /* ------- Creating the Game Board ------- */
 const generateGameBoard = () => {
@@ -137,7 +139,7 @@ const generateGameBoard = () => {
     for (let j = 0; j < game.boardWidth; j++) {
       // console.log('appending a square');
       const $square = $('<div class="square"/>');
-      $square.css('background-color', applyRandomColor());
+      $square.css('background-color', applyRandomColor(game.numOfColors));
       $row.append($square);
     }
     $squares.append($row);
@@ -147,7 +149,7 @@ const generateGameBoard = () => {
 /* This randomizes all .square colors */
 const updateSquareColors = () => {
   $('.square').each(function () {
-    $(this).css('background-color', applyRandomColor());
+    $(this).css('background-color', applyRandomColor(game.numOfColors));
   })
 }
 
@@ -172,7 +174,7 @@ const updateTime = () => {
 
 const gameStart = () => {
   generateGameBoard();
-  let color = applyRandomColor()
+  let color = applyRandomColor(game.numOfColors);
   game.goalColor = color;
   $('.goal-square').css('background-color', color);
 }
