@@ -227,17 +227,40 @@ const updateTime = () => {
 
 const gameController = () => {
 // if game.time === 0
+if (game.round > 1 && game.time === 0) {
+  endcard();
+} else if (game.round === 1 && game.time === 0){
+  endcard();
+}; else if (game.goalCurrentNumber === 0 && game.time > 0) {
+setTimer();
+game.goalColor = applyRandomColor();
+game.scoreMultiplier++;
+game.boardWidth--;
+game.boardHeight--;
+game.round++;
+generateGameBoard();
+updateGameGoalColor();
+}
 // // check for endgame condition, if game.round > 1, success endcard, include game.goalTotalNumber & game.round in the endcard
 // // // if 1 then failure endcard, include difference between game.goalNumber & game.goalCurrentNumber in the endcard text.
 // if game.goalCurrentNumber === 0
 // // reset timer, update game.goal color, add one to game.scoreMultiplier, remove 1 from game.boardWidth & game.boardHeight, add 1 to game.round, generate gameboard()  
 };
 
-const gameStart = () => {
-  generateGameBoard();
-  let color = applyRandomColor();
+const endcard = () => {
+
+};
+
+/* breakout updating the game goal color into its own function so i can call it for a new round */
+const updateGameGoalColor = () => {
+let color = applyRandomColor();
   game.goalColor = color;
   game.goalCurrentNumber = game.goalNumber;
   $('#goalNumber').text(`${game.goalNumber}`);
   $('.goal-square').css('background-color', color);
+}
+
+const gameStart = () => {
+  generateGameBoard();
+  updateGameGoalColor();
 }
