@@ -91,6 +91,13 @@ button {
 }
 
 .selected {
+  /* border-style: dotted;
+  border-width: 5px;
+  border-color: rgba(255, 255, 255, 1); */
+  /* box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65); */
+}
+
+.match {
   border-style: dotted;
   border-width: 5px;
   border-color: rgba(255, 255, 255, 1);

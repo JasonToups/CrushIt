@@ -1,6 +1,6 @@
 let game = {
   'boardWidth': 7,
-  'boardHeight': 10,
+  'boardHeight': 7,
   'score': 0,
   'goalColor': "",
   'timer': 30,
@@ -20,7 +20,7 @@ $('button').on('click', () => {
 const handlePoke = (event) => {
   console.log(event.target);
   $(event.target).addClass('selected');
-  $(event.target).addClass('animated heartBeat');
+  $(event.target).addClass('animated pulse infinite');
   /* Finding Current Index of Poke and Parent row ID */
   // let parent = parseInt($(event.target).parent().attr('id'));
   // console.log(parent);
@@ -46,10 +46,10 @@ const validateMatchArray = () => {
   console.log('Validate Match Array Function Start');
   let matchArray = game.matchArray;
   /*  This is how this for loop should start */
-  // for (let i = 0; i <= matchArray.length; i++) {
+  for (let i = 0; i <= matchArray.length; i++) {
 
-  /* DEBUGGING FOR LOOP */
-  for (let i = 0; i < 10; i++) {
+    /* DEBUGGING FOR LOOP */
+    // for (let i = 0; i < 20; i++) {
     /* Finding Current Index of Poke and Parent row ID */
     console.log(`Match Array index ${i}`)
     // let parent = parseInt($(matchArray).eq(i).parent().attr('id'));
@@ -100,6 +100,8 @@ const validateMatchArray = () => {
     /* -- When defining the variables used below, if the square is on the boarder it should return False */
     $(currentSquare).addClass('match');
 
+    let currentArrayLength = game.matchArray.length;
+
     if (squareAbove) {
       if (currentSquareColor === squareAboveColor && !game.matchArray.includes(squareAbove) && !$(squareAbove).hasClass("match")) {
         $(squareAbove).addClass('match');
@@ -124,14 +126,11 @@ const validateMatchArray = () => {
         game.matchArray.push(squareRight);
       }
     }
-    /* Everything in the fuction is working up until the closing statement. This mess below doesn't work */
-    /* BUG - Cleanup this mess */
-    // if ((currentSquareColor !== squareAboveColor || currentSquareColor === squareAboveColor && $(squareAbove).hasClass("match")) && (currentSquareColor !== squareBelowColor || currentSquareColor === squareBelowColor && $(squareBelow).hasClass("match")) && (currentSquareColor !== squareLeftColor || currentSquareColor === squareLeftColor && $(squareLeft).hasClass("match")) && (currentSquareColor !== squareRightColor || currentSquareColor === squareRightColor && $(squareRight).hasClass("match"))) {
-    //   return game.matchArray;
-    // }
+    if (i === game.matchArray.length - 1) {
+      console.log('end of the loop');
+      return game.matchArray;
+    }
 
-    console.log(game.matchArray);
-    console.log(`Game Match Array Length ${game.matchArray.length}`);
   }
   console.log(game.matchArray);
   return game.matchArray;
