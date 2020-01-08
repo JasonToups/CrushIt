@@ -23,7 +23,6 @@ $('.start').on('click', () => {
 });
 const createRandomButton = () => {
   console.log('Randomize Board');
-  // TODO add a button that randomizes the colors on the board after the .squares in .randomize
   const $randomize = $('<button class="randomize">Randomize</button>');
   $(".random").append($randomize);
 };
@@ -223,7 +222,6 @@ const updateSquareColors = () => {
 // When the time is up, send to gameController()
 // If Goal has been met, new round should begin with increasing difficulty
 // If Goal has not been met, game over screen with score.
-/* TODO fix timer */
 /* track what the old round is and the new round to clear the interval */
 const setTimer = (newRound) => {
   // function to run , time interval
@@ -256,13 +254,11 @@ const updateTime = () => {
 const gameController = () => {
   // if game.time === 0
   if (game.round > 1 && game.time === 0) {
-    endcard();
+    // endcard();
   } else if (game.round === 1 && game.time === 0) {
     endcard();
   } else if (game.goalCurrentNumber <= 0 && game.time > 0) {
     setTimer(true);
-    /* TODO DELETE test and delete  */
-    // game.goalColor = applyRandomColor();
     game.scoreMultiplier++;
     game.boardWidth--;
     game.boardHeight--;
@@ -283,7 +279,14 @@ const gameController = () => {
 };
 
 const endcard = () => {
-
+  console.log('GAME OVER')
+  $(".squares").remove();
+  $(".randomize").remove();
+  // also remove header
+  $("header").remove();
+  /* TODO append some JQuery to the .endcard  */
+  const $endcardHeader = $('<h1">GAME OVER</button>');
+  $(".endcard").append($endcardHeader);
 };
 
 /* breakout updating the game goal color into its own function so i can call it for a new round */
