@@ -5,12 +5,13 @@ let game = {
   'scoreMultiplier': 2,
   'goalColor': "",
   'goalNumber': 20,
-  'goalCurrentNumber' : 0,
+  'goalCurrentNumber': 0,
   'goalTotalNumber': 0,
   'round': 1,
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
   'time': 30,
+  'roundTime': 30,
   'matchArray': [],
 }
 
@@ -18,7 +19,6 @@ let game = {
 $('button').on('click', () => {
   console.log('Game Start');
   gameStart();
-  setTimer();
 });
 
 /* -------- Handles Touch Event -------- */
@@ -51,7 +51,7 @@ const scoring = () => {
         $('#scoreNumber').text(`${game.score}`);
         game.goalCurrentNumber--;
         game.goalTotalNumber++;
-        $('#goalNumber').text(`${game.goalNumber}`);
+        $('#goalNumber').text(`${game.goalCurrentNumber}`);
         $(game.matchArray[i]).removeClass('match');
         applyRandomColor(game.matchArray[i]);
         $(game.matchArray[i]).css('background-color', applyRandomColor());
@@ -84,7 +84,7 @@ const validateMatchArray = () => {
     console.log(`Match Array index ${i}`);
     let parent = parseInt($(matchArray[i]).parent().attr('id'));
     let currentIndex = $(matchArray[i]).index();
-    console.log(`row ${parent}`);
+    console.log(`rows ${parent}`);
     console.log(`column ${currentIndex}`);
 
     /* Getting the neighboring squares in 4 cardinal directions */
@@ -176,15 +176,15 @@ const applyRandomColor = () => {
 const generateGameBoard = () => {
   const $squares = $('.squares');
   for (let i = 0; i < game.boardHeight; i++) {
-    const $row = $(`<div class="row" id=${i}/>`);
-    // console.log('appending a row');
+    const $rows = $(`<div class="rows" id=${i}/>`);
+    // console.log('appending a rows');
     for (let j = 0; j < game.boardWidth; j++) {
       // console.log('appending a square');
       const $square = $('<div class="square"/>');
       $square.css('background-color', applyRandomColor());
-      $row.append($square);
+      $rows.append($square);
     }
-    $squares.append($row);
+    $squares.append($rows);
   }
 }
 
@@ -200,13 +200,18 @@ const updateSquareColors = () => {
 // When the time is up, send to gameController()
 // If Goal has been met, new round should begin with increasing difficulty
 // If Goal has not been met, game over screen with score.
-const setTimer = () => {
+/* TODO fix timer */
+/* track what the old round is and the new round to clear the interval */
+const setTimer = (newRound) => {
   // function to run , time interval
   const timer = setInterval(() => {
+    if (newRound) {
+      clearInterval(timer);
+      // setTimer();
+    }
     if (game.time === 0) {
       // used to stop setInterval
-      /* Still need to write gameController function */
-      // gameController();
+
       clearInterval(timer);
       if (game.time > 0) setTimer();
     }
@@ -226,25 +231,32 @@ const updateTime = () => {
 // If Goal has not been met, game over screen with score.
 
 const gameController = () => {
-// if game.time === 0
-if (game.round > 1 && game.time === 0) {
-  endcard();
-} else if (game.round === 1 && game.time === 0){
-  endcard();
-}; else if (game.goalCurrentNumber === 0 && game.time > 0) {
-setTimer();
-game.goalColor = applyRandomColor();
-game.scoreMultiplier++;
-game.boardWidth--;
-game.boardHeight--;
-game.round++;
-generateGameBoard();
-updateGameGoalColor();
-}
-// // check for endgame condition, if game.round > 1, success endcard, include game.goalTotalNumber & game.round in the endcard
-// // // if 1 then failure endcard, include difference between game.goalNumber & game.goalCurrentNumber in the endcard text.
-// if game.goalCurrentNumber === 0
-// // reset timer, update game.goal color, add one to game.scoreMultiplier, remove 1 from game.boardWidth & game.boardHeight, add 1 to game.round, generate gameboard()  
+  // if game.time === 0
+  if (game.round > 1 && game.time === 0) {
+    endcard();
+  } else if (game.round === 1 && game.time === 0) {
+    endcard();
+  } else if (game.goalCurrentNumber <= 0 && game.time > 0) {
+    setTimer(true);
+    /* TODO DELETE test and delete  */
+    // game.goalColor = applyRandomColor();
+    game.scoreMultiplier++;
+    game.boardWidth--;
+    game.boardHeight--;
+    game.round++;
+    game.time = game.roundTime;
+    if (game.numOfColors < game.colors.length) {
+      game.numOfColors++;
+    };
+    $(".square").remove();
+    $(".rows").remove();
+    generateGameBoard();
+    updateGameGoalColor();
+  }
+  // // check for endgame condition, if game.round > 1, success endcard, include game.goalTotalNumber & game.round in the endcard
+  // // // if 1 then failure endcard, include difference between game.goalNumber & game.goalCurrentNumber in the endcard text.
+  // if game.goalCurrentNumber === 0
+  // // reset timer, update game.goal color, add one to game.scoreMultiplier, remove 1 from game.boardWidth & game.boardHeight, add 1 to game.round, generate gameboard()  
 };
 
 const endcard = () => {
@@ -253,14 +265,15 @@ const endcard = () => {
 
 /* breakout updating the game goal color into its own function so i can call it for a new round */
 const updateGameGoalColor = () => {
-let color = applyRandomColor();
+  let color = applyRandomColor();
   game.goalColor = color;
   game.goalCurrentNumber = game.goalNumber;
-  $('#goalNumber').text(`${game.goalNumber}`);
+  $('#goalNumber').text(`${game.goalCurrentNumber}`);
   $('.goal-square').css('background-color', color);
 }
 
 const gameStart = () => {
+  setTimer();
   generateGameBoard();
   updateGameGoalColor();
 }
