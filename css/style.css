@@ -48,6 +48,18 @@ button {
   height: 50px;
   padding: 1%;
   border-radius: 26px;
+}
+
+.start {
+  box-shadow: inset 0 -6px 3px 0 #388d7e, inset 0 7px 3px 0 #b6f8de;
+  background-image: linear-gradient(to bottom, #99ffd3, #0ba073);
+}
+
+.randomize {
+  margin-top: 5px;
+  width: auto;
+  height: auto;
+  padding: 2%;
   box-shadow: inset 0 -6px 3px 0 #388d7e, inset 0 7px 3px 0 #b6f8de;
   background-image: linear-gradient(to bottom, #99ffd3, #0ba073);
 }
@@ -97,10 +109,14 @@ button {
   /* box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65); */
 }
 
-.match {
+.highlight {
   border-style: dotted;
   border-width: 5px;
   border-color: rgba(255, 255, 255, 1);
+  filter: saturate(150%);
+  transform: scale(1.2);
+  z-index: 2;
+  position: relative;
   /* box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65); */
 }
 
