@@ -10,17 +10,13 @@ const game = {
   'round': 1,
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
-  'time': 30,
-  'roundTime': 30,
+  'time': 0,
+  'roundTime': 10,
   'matchArray': [],
   'animationTime': 1200,
+  'gameOver': false,
 }
 
-
-$('.start').on('click', () => {
-  console.log('Game Start');
-  gameStart();
-});
 const createRandomButton = () => {
   console.log('Randomize Board');
   const $randomize = $('<button class="randomize">Randomize</button>');
@@ -232,12 +228,15 @@ const setTimer = (newRound) => {
     }
     if (game.time === 0) {
       // used to stop setInterval
-
+      // game.gameOver = true;
+      console.log('Game Time === 0');
       clearInterval(timer);
+      gameController();
       if (game.time > 0) setTimer();
     }
     updateTime();
-    game.time--;
+    if (game.time > 0) game.time--;
+    console.log(game.time);
   }, 1000);
 }
 
@@ -252,11 +251,21 @@ const updateTime = () => {
 // If Goal has not been met, game over screen with score.
 
 const gameController = () => {
-  // if game.time === 0
   if (game.round > 1 && game.time === 0) {
-    // endcard();
-  } else if (game.round === 1 && game.time === 0) {
+    if (game.gameOver) {
+      return;
+    }
     endcard();
+    game.gameOver = true;
+    // break;
+  } else if (game.round === 1 && game.time === 0) {
+    if (game.gameOver) {
+      return;
+    }
+    endcard();
+    game.gameOver = true;
+
+    // break;
   } else if (game.goalCurrentNumber <= 0 && game.time > 0) {
     setTimer(true);
     game.scoreMultiplier++;
@@ -280,13 +289,29 @@ const gameController = () => {
 
 const endcard = () => {
   console.log('GAME OVER')
+  $('body').css('background-image', 'linear-gradient(to bottom, #99fcff, #7965fa)');
+  $('body').css('height', '100vh');
+
   $(".squares").remove();
   $(".randomize").remove();
   // also remove header
   $("header").remove();
   /* TODO append some JQuery to the .endcard  */
-  const $endcardHeader = $('<h1">GAME OVER</button>');
-  $(".endcard").append($endcardHeader);
+
+  if (game.round > 1 && game.time === 0) {
+    const $endcardHeader = $('<h1>You Win!</h1>');
+    $(".endcard").append($endcardHeader);
+    const $endcardBody = $(`<p>You crushed ${game.goalTotalNumber} goal blocks, in ${game.round} rounds!</p>`);
+    $(".endcard").append($endcardBody);
+  } else {
+    const $endcardHeader = $('<h1>Try Again!</h1>');
+    $(".endcard").append($endcardHeader);
+    const $endcardBody = $(`<p>You were ${game.goalNumber - game.goalTotalNumber} blocks away from winning. Play again to get to round 2.</p>`);
+    $(".endcard").append($endcardBody);
+
+
+  }
+
 };
 
 /* breakout updating the game goal color into its own function so i can call it for a new round */
@@ -298,10 +323,56 @@ const updateGameGoalColor = () => {
   $('.goal-square').css('background-color', color);
 }
 
+// $('.start').on('click', () => {
+//   console.log('Game Start');
+//   gameStart();
+// });
+
+const tutorial = () => {
+  const $tutorialHeader = $('<h1>Are you ready to CRUSH IT???</h1>');
+  $(".tutorial").append($tutorialHeader);
+  const $tutorialBody = $(`<p>Crush ${game.goalNumber} blocks before the ${game.roundTime} second timer runs out!</p>`);
+  $(".tutorial").append($tutorialBody);
+  console.log('Start button created');
+  const $start = $('<button class="start">Start!</button>');
+  $(".tutorial").append($start);
+  $('.start').on('click', () => {
+    console.log('Game Start');
+    gameStart();
+  });
+};
+
+const ui = () => {
+  const $header = $('<header></header>');
+  const $uiHeader = $('<h1>Crush it!</h1>');
+  const $uiBody = $(`
+  <div class="container-fluid">
+    < div class= "row" >
+    <div class="col-4" id="goal">
+      Goal <span id="goalNumber"></span>
+      <div class="goal-square"></div>
+    </div>
+    <div class="col-4" id="timer">
+      Timer<br><span id="timerNumber"></span>
+    </div>
+      <div class="col-4" id="score">
+        Score<br><span id="scoreNumber">0</span>
+    </div>
+      </div>
+    </div>`);
+  $("body").append($header);
+  $(".header").append($uiHeader);
+  $(".header").append($uiBody);
+};
+
+
 const gameStart = () => {
-  $(".start").remove();
+  game.time = game.roundTime;
+  $(".tutorial").remove();
   setTimer();
   generateGameBoard();
   createRandomButton();
   updateGameGoalColor();
 }
+
+tutorial();
