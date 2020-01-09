@@ -391,6 +391,10 @@ const ui = () => {
 
 
 const gameStart = () => {
+// TODO refactor this for replay
+//remove the .gameboard .row .squares .square
+// remove .endcard
+// .tutorial is being removed twice
   $('.tutorial').remove();
   game.time = game.roundTime;
   $(".tutorial").remove();
