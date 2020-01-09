@@ -62,13 +62,6 @@ button {
   background-image: linear-gradient(to bottom, #99ffd3, #0ba073);
 }
 
-.contact {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  box-shadow: inset 0 -6px 3px 0 #388d7e, inset 0 7px 3px 0 #b6f8de;
-  background-image: linear-gradient(to bottom, #99ffd3, #0ba073);
-}
-
 .randomize {
   margin-top: 5px;
   width: auto;
@@ -78,8 +71,9 @@ button {
   background-image: linear-gradient(to bottom, #99ffd3, #0ba073);
 }
 
-.share {
+a {
   color: white;
+  text-decoration: none;
   font-size: 20px;
   width: 125px;
   height: 45px;
@@ -87,6 +81,23 @@ button {
   border-radius: 26px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+a:hover {
+  color: white;
+  text-decoration: none;
+  filter: brightness(110%);
+}
+
+.contact {
+  margin: 5px;
+  box-shadow: inset 0 -6px 3px 0 #388d7e, inset 0 7px 3px 0 #b6f8de;
+  background-image: linear-gradient(to bottom, #99ffd3, #0ba073);
+}
+
+
+.share {
+  margin: 5px;
   box-shadow: inset 0 -6px 3px 0 rgba(0, 75, 153, 0.5), inset 0 7px 5px 0 rgba(245, 208, 250, 0.55);
   background-image: linear-gradient(to bottom, #a799ff, #7965fa);
 }
@@ -149,6 +160,10 @@ button {
 
 .endcard span {
   color: black;
+}
+
+.endcard .row {
+  margin: 0;
 }
 
 /* ------------- GAMEBOARD ------------- */

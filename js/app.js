@@ -7,7 +7,7 @@ const game = {
   'scoreMultiplier': 2,
   'goalColor': "",
   // 'goalNumber': 30,
-  'goalNumber': 20,
+  'goalNumber': 0,
   'goalCurrentNumber': 0,
   'goalTotalNumber': 0,
   // 'round': 1,
@@ -16,7 +16,7 @@ const game = {
   'numOfColors': 3,
   'time': 0,
   // 'roundTime': 30,
-  'roundTime': 30,
+  'roundTime': 2,
   'matchArray': [],
   'animationTime': 1200,
   'gameOver': false,
@@ -301,16 +301,17 @@ const gameController = () => {
 
 const endcard = () => {
   console.log('GAME OVER')
+  /* creating background gradient */
   $('body').css('background-image', 'linear-gradient(to bottom, #99fcff, #7965fa)');
   $('body').css('height', '100vh');
 
+  /* removing game elements */
   $("header").remove();
   $(".gameboard").remove();
   $(".squares").remove();
   $(".randomize").remove();
 
-  /* TODO update the .endcard  */
-
+  /* checking winning or losing conditions to display different endcards */
   if (game.round > 1 && game.time === 0) {
     const $endcardHeader = $('<h1><span>You Win!</span></h1>');
     $(".endcard").append($endcardHeader);
@@ -325,13 +326,13 @@ const endcard = () => {
     Play again to get to round 2.</p>`);
     $(".endcard").append($endcardBody);
   }
-  const $row = $('<div class = "row"><div>');
-  const $share = $('<button class="share">share</button>');
-  const $contact = $('<button class="contact">contact</button>');
+  /* shared content for both endcards */
+  const $row = $('<div class = "row"></div>');
+  const $share = $('<a class="share" href="#">share</a>');
+  const $contact = $('<a class="contact" href="https://www.linkedin.com/in/jasontoups/">contact</a>');
   $(".endcard").append($row);
   $(".row").append($share);
   $(".row").append($contact);
-
 };
 
 /* TODO breakout updating the game goal color into its own function so i can call it for a new round */
