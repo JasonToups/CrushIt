@@ -2,6 +2,7 @@ body {
   background-color: #EAEAEA;
   font-family: 'Suez One', serif;
   text-align: center;
+  height: 100vh;
 }
 
 /* ------------- UI ------------- */
@@ -112,7 +113,7 @@ a:hover {
 .tutorial {
   color: rgb(82, 82, 82);
   position: absolute;
-  padding: 3px;
+  padding: 5px;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
@@ -169,6 +170,10 @@ a:hover {
 
 .endcard .row {
   margin: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 /* ------------- GAMEBOARD ------------- */

@@ -1,22 +1,25 @@
 const game = {
   'boardWidth': 10,
+  'boardWidthStart': 10,
   'boardWidthMin': 4,
   'boardHeight': 9,
+  'boardHeightStart': 9,
   'boardHeightMin': 5,
   'score': 0,
   'scoreMultiplier': 2,
   'goalColor': "",
   // 'goalNumber': 30,
-  'goalNumber': 0,
+  'goalNumber': 30,
   'goalCurrentNumber': 0,
   'goalTotalNumber': 0,
   // 'round': 1,
   'round': 2,
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(66, 213, 198)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
-  'time': 0,
   // 'roundTime': 30,
-  'roundTime': 2,
+  'time': 0,
+  'roundTime': 5,
+  'roundTimeStart': 5,
   'matchArray': [],
   'animationTime': 1200,
   'gameOver': false,
@@ -303,7 +306,7 @@ const endcard = () => {
   console.log('GAME OVER')
   /* creating background gradient */
   $('body').css('background-image', 'linear-gradient(to bottom, #99fcff, #7965fa)');
-  $('body').css('height', '100vh');
+  // $('body').css('height', '100vh');
 
   /* removing game elements */
   $("header").remove();
@@ -317,17 +320,17 @@ const endcard = () => {
     $(".endcard").append($endcardHeader);
     const $endcardBody = $(`<p>You crushed<br><span>${game.goalTotalNumber}</span> goal blocks<br> in <span>${game.round} rounds!<span></p>`);
     $(".endcard").append($endcardBody);
-    const $endcardScore = $(`<h2><span>Final Score: ${game.score}</span></h2>`);
-    $(".endcard").append($endcardScore);
   } else {
-    const $endcardHeader = $('<h1>Try Again!</h1>');
+    const $endcardHeader = $('<h1><span>Try Again!</span></h1>');
     $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<p>You were <br>${game.goalNumber - game.goalTotalNumber} blocks away from winning.<br> 
-    Play again to get to round 2.</p>`);
+    const $endcardBody = $(`<p>You were <br><span>${game.goalNumber - game.goalTotalNumber} blocks</span><br>away from winning.<br> 
+    <span>Play again</span> to get to round 2.</p>`);
     $(".endcard").append($endcardBody);
   }
   /* shared content for both endcards */
   // TODO change share anchor to replay button
+  const $endcardScore = $(`<h2><span>Final Score: ${game.score}</span></h2>`);
+  $(".endcard").append($endcardScore);
   const $row = $('<div class = "row"></div>');
   const $share = $('<a class="share" href="#">share</a>');
   const $contact = $('<a class="contact" href="https://www.linkedin.com/in/jasontoups/">contact</a>');
@@ -392,11 +395,6 @@ const ui = () => {
 
 
 const gameStart = () => {
-// TODO refactor this for replay
-//remove the .gameboard .row .squares .square
-// remove .endcard
-// .tutorial is being removed twice
-  $('.tutorial').remove();
   game.time = game.roundTime;
   $(".tutorial").remove();
   setTimer();
@@ -404,6 +402,34 @@ const gameStart = () => {
   generateGameBoard();
   createRandomButton();
   updateGameGoalColor();
+  $('.squares').on('click', '.square', handlePoke);
+}
+
+const replay = () => {
+  game.boardWidth = game.boardWidthStart;
+  game.boardHeight = game.boardHeightStart;
+  game.score = 0;
+  game.scoreMultiplier = 2;
+  game.goalCurrentNumber = 0;
+  game.goalTotalNumber = 0;
+  game.round = 1;
+  game.numOfColors = 3;
+  game.time = 0;
+  game.roundTime = game.roundTimeStart;
+  game.gameOver = false;
+  $(".endcard").remove();
+  $('body').css('background-image', 'none');
+  const $gameboard = (`
+  <div class="gameboard">
+    <div class="squares">
+    </div>
+    <div class="random">
+    </div>
+  </div>
+  <div class="endcard">
+  </div>`);
+  $("body").prepend($gameboard);
+  gameStart();
 }
 
 tutorial();
