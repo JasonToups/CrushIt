@@ -327,6 +327,7 @@ const endcard = () => {
     $(".endcard").append($endcardBody);
   }
   /* shared content for both endcards */
+  // TODO change share anchor to replay button
   const $row = $('<div class = "row"></div>');
   const $share = $('<a class="share" href="#">share</a>');
   const $contact = $('<a class="contact" href="https://www.linkedin.com/in/jasontoups/">contact</a>');
