@@ -347,7 +347,7 @@ const ui = () => {
   const $uiHeader = $('<h1>Crush it!</h1>');
   const $uiBody = $(`
   <div class="container-fluid">
-    < div class= "row" >
+    <div class= "row">
     <div class="col-4" id="goal">
       Goal <span id="goalNumber"></span>
       <div class="goal-square"></div>
@@ -360,16 +360,18 @@ const ui = () => {
     </div>
       </div>
     </div>`);
-  $("body").append($header);
-  $(".header").append($uiHeader);
-  $(".header").append($uiBody);
+  $("body").prepend($header);
+  $("header").append($uiHeader);
+  $("header").append($uiBody);
 };
 
 
 const gameStart = () => {
+  $('.tutorial').remove();
   game.time = game.roundTime;
   $(".tutorial").remove();
   setTimer();
+  ui();
   generateGameBoard();
   createRandomButton();
   updateGameGoalColor();
