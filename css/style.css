@@ -5,9 +5,10 @@ body {
 }
 
 header {
+  color: rgb(65, 65, 65);
   font-size: 25px;
   width: auto;
-  height: auto;
+  height: 125px;
   margin-top: 0px;
   margin-bottom: 7px;
   border-radius: 0px 0px 32px 32px;
@@ -22,7 +23,27 @@ header {
 
 }
 
+header h1 {
+  color: black;
+  text-align: center;
+  font-size: 30px;
+  margin: 0;
+}
+
+header span {
+  color: black;
+}
+
+.goal-square {
+  margin: auto;
+  width: 25px;
+  height: 25px;
+  border-radius: 7px;
+  box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 1px 3px 3px 0 rgba(255, 255, 255, 0.65);
+}
+
 .tutorial {
+  color: rgb(82, 82, 82);
   position: absolute;
   padding: 3px;
   top: 50%;
@@ -46,9 +67,26 @@ header {
 
 }
 
+.tutorial p {
+  margin-bottom: 0px;
+  margin-top: 16px;
+}
+
+.tutorial span {
+  /* -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white; */
+  font-style: bold;
+  color: black;
+}
+
+.tutorial button {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .endcard {
-  /* height: 50vh; */
-  /* font-size: 60px; */
+  color: rgb(82, 82, 82);
+  font-size: 30px;
   margin: 0;
   position: absolute;
   top: 50%;
@@ -57,14 +95,9 @@ header {
   transform: translate(-50%, -50%);
 }
 
-header h1 {
-  /* margin-top: auto; */
-  text-align: center;
-  font-size: 30px;
-  margin: 0;
+.endcard h1 {
+  font-size: 60px;
 }
-
-
 
 /* button {
   margin: auto;
@@ -75,6 +108,13 @@ header h1 {
   box-shadow: 0px 3px 5px lightgreen inset;
   padding: 1%;
 } */
+
+.gameboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: calc(100vh - 125px);
+}
 
 button {
   margin: auto;
@@ -101,18 +141,9 @@ button {
   background-image: linear-gradient(to bottom, #99ffd3, #0ba073);
 }
 
-/* -- this is the model, but it's not centered */
-/* .squares div {
-  width: 5vh;
-  height: 5vh;
-  margin-right: 1%;
-  display: inline-block;
-  background-color: cornflowerblue;
-  border-radius: 5px;
-  box-shadow: 2px 5px 10px whitesmoke inset;
-} */
 
 .squares div {
+  /* WORKING */
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -120,30 +151,15 @@ button {
 }
 
 
-.goal-square {
-  /* BUG - The goal square should appear to the right of the Goal UI Element */
-  /* display: inline; */
-  margin: auto;
-  width: 25px;
-  height: 25px;
-  /* margin: 5px; */
-  border-radius: 7px;
-  box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 1px 3px 3px 0 rgba(255, 255, 255, 0.65);
-}
+
 
 .square {
+  /* background-color: rgb(66, 213, 198); */
   width: 55px;
   height: 55px;
   margin: 5px;
   border-radius: 7px;
   box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65);
-}
-
-.selected {
-  /* border-style: dotted;
-  border-width: 5px;
-  border-color: rgba(255, 255, 255, 1); */
-  /* box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65); */
 }
 
 .highlight {
@@ -154,6 +170,8 @@ button {
   transform: scale(1.2);
   z-index: 2;
   position: relative;
+  /* background-color: rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(44, 193, 178)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)', */
+
   /* box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65); */
 }
 

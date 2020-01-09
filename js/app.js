@@ -1,17 +1,22 @@
 const game = {
-  'boardWidth': 7,
-  'boardHeight': 10,
+  'boardWidth': 10,
+  'boardWidthMin': 4,
+  'boardHeight': 9,
+  'boardHeightMin': 5,
   'score': 0,
   'scoreMultiplier': 2,
   'goalColor': "",
-  'goalNumber': 20,
+  // 'goalNumber': 30,
+  'goalNumber': 0,
   'goalCurrentNumber': 0,
   'goalTotalNumber': 0,
-  'round': 1,
-  'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
+  // 'round': 1,
+  'round': 2,
+  'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(66, 213, 198)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
   'time': 0,
-  'roundTime': 30,
+  // 'roundTime': 30,
+  'roundTime': 2,
   'matchArray': [],
   'animationTime': 1200,
   'gameOver': false,
@@ -269,8 +274,15 @@ const gameController = () => {
   } else if (game.goalCurrentNumber <= 0 && game.time > 0) {
     setTimer(true);
     game.scoreMultiplier++;
-    game.boardWidth--;
-    game.boardHeight--;
+    //wrap this in a conditional that checks the width & height, and only runs if it's greater than, game.widthMin game.widthMax
+    // game.boardWidth--;
+    // game.boardHeight--;
+    if (game.boardWidth > game.boardWidthMin) {
+      game.boardWidth--;
+    }
+    if (game.boardHeight > game.boardHeightMin) {
+      game.boardHeight--;
+    }
     game.round++;
     game.time = game.roundTime;
     if (game.numOfColors < game.colors.length) {
@@ -296,20 +308,21 @@ const endcard = () => {
   $(".randomize").remove();
   // also remove header
   $("header").remove();
-  /* TODO append some JQuery to the .endcard  */
+
+  /* TODO update the .endcard  */
 
   if (game.round > 1 && game.time === 0) {
     const $endcardHeader = $('<h1>You Win!</h1>');
     $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<h2>You crushed ${game.goalTotalNumber} goal blocks in ${game.round} rounds!</h2>`);
+    const $endcardBody = $(`<p>You crushed<br><span>${game.goalTotalNumber}</span> goal blocks<br> in <span>${game.round} rounds!<span></p>`);
     $(".endcard").append($endcardBody);
-    const $endcardScore = $(`<h1>Score: ${game.score}</h1>`);
+    const $endcardScore = $(`<h2>Final Score: ${game.score}</h2>`);
     $(".endcard").append($endcardScore);
   } else {
     const $endcardHeader = $('<h1>Try Again!</h1>');
     $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<h2>You were ${game.goalNumber - game.goalTotalNumber} blocks away from winning.<br> 
-    Play again to get to round 2.</h2>`);
+    const $endcardBody = $(`<p>You were <br>${game.goalNumber - game.goalTotalNumber} blocks away from winning.<br> 
+    Play again to get to round 2.</p>`);
     $(".endcard").append($endcardBody);
   }
 };
@@ -329,10 +342,16 @@ const updateGameGoalColor = () => {
 // });
 
 const tutorial = () => {
-  const $tutorialHeader = $('<h1>Are you ready to CRUSH IT???</h1>');
+  const $tutorialHeader = $('<h1>Are you ready to<br><span>CRUSH IT???</span></h1>');
   $(".tutorial").append($tutorialHeader);
-  const $tutorialBody = $(`<p>Crush ${game.goalNumber} blocks before the ${game.roundTime} second timer runs out!</p>`);
+  const $tutorialBody = $(`<p><span>Match at least 2</span> of the same colored blocks to <span>Crush</span> them!</p>
+  <div class="squares">
+  <div class="row">
+  <div class="square" style="background-color: rgb(100, 149, 237);"></div><div class="square" style="background-color: rgb(100, 149, 237);"></div></div></div>
+  <p>Crush <span>${game.goalNumber} Goal Blocks</span>,</p>
+  <p>before the <span>${game.roundTime} second Timer</span> runs out!</p>`);
   $(".tutorial").append($tutorialBody);
+
   console.log('Start button created');
   const $start = $('<button class="start">Start!</button>');
   $(".tutorial").append($start);
@@ -348,12 +367,12 @@ const ui = () => {
   const $uiBody = $(`
   <div class="container-fluid">
     <div class= "row">
+    <div class="col-4" id="timer">
+      Timer<br><span id="timerNumber"></span>
+    </div>
     <div class="col-4" id="goal">
       Goal <span id="goalNumber"></span>
       <div class="goal-square"></div>
-    </div>
-    <div class="col-4" id="timer">
-      Timer<br><span id="timerNumber"></span>
     </div>
       <div class="col-4" id="score">
         Score<br><span id="scoreNumber">0</span>
