@@ -7,7 +7,7 @@ const game = {
   'scoreMultiplier': 2,
   'goalColor': "",
   // 'goalNumber': 30,
-  'goalNumber': 0,
+  'goalNumber': 20,
   'goalCurrentNumber': 0,
   'goalTotalNumber': 0,
   // 'round': 1,
@@ -16,7 +16,7 @@ const game = {
   'numOfColors': 3,
   'time': 0,
   // 'roundTime': 30,
-  'roundTime': 2,
+  'roundTime': 30,
   'matchArray': [],
   'animationTime': 1200,
   'gameOver': false,
@@ -304,19 +304,19 @@ const endcard = () => {
   $('body').css('background-image', 'linear-gradient(to bottom, #99fcff, #7965fa)');
   $('body').css('height', '100vh');
 
+  $("header").remove();
+  $(".gameboard").remove();
   $(".squares").remove();
   $(".randomize").remove();
-  // also remove header
-  $("header").remove();
 
   /* TODO update the .endcard  */
 
   if (game.round > 1 && game.time === 0) {
-    const $endcardHeader = $('<h1>You Win!</h1>');
+    const $endcardHeader = $('<h1><span>You Win!</span></h1>');
     $(".endcard").append($endcardHeader);
     const $endcardBody = $(`<p>You crushed<br><span>${game.goalTotalNumber}</span> goal blocks<br> in <span>${game.round} rounds!<span></p>`);
     $(".endcard").append($endcardBody);
-    const $endcardScore = $(`<h2>Final Score: ${game.score}</h2>`);
+    const $endcardScore = $(`<h2><span>Final Score: ${game.score}</span></h2>`);
     $(".endcard").append($endcardScore);
   } else {
     const $endcardHeader = $('<h1>Try Again!</h1>');
@@ -325,9 +325,16 @@ const endcard = () => {
     Play again to get to round 2.</p>`);
     $(".endcard").append($endcardBody);
   }
+  const $row = $('<div class = "row"><div>');
+  const $share = $('<button class="share">share</button>');
+  const $contact = $('<button class="contact">contact</button>');
+  $(".endcard").append($row);
+  $(".row").append($share);
+  $(".row").append($contact);
+
 };
 
-/* breakout updating the game goal color into its own function so i can call it for a new round */
+/* TODO breakout updating the game goal color into its own function so i can call it for a new round */
 const updateGameGoalColor = () => {
   let color = applyRandomColor();
   game.goalColor = color;
@@ -336,11 +343,7 @@ const updateGameGoalColor = () => {
   $('.goal-square').css('background-color', color);
 }
 
-// $('.start').on('click', () => {
-//   console.log('Game Start');
-//   gameStart();
-// });
-
+/* --------- CREATING TUTORIAL POPUP & STARTING GAME---------*/
 const tutorial = () => {
   const $tutorialHeader = $('<h1>Are you ready to<br><span>CRUSH IT???</span></h1>');
   $(".tutorial").append($tutorialHeader);
@@ -361,6 +364,7 @@ const tutorial = () => {
   });
 };
 
+/* --------- CREATING UI ---------*/
 const ui = () => {
   const $header = $('<header></header>');
   const $uiHeader = $('<h1>Crush it!</h1>');
