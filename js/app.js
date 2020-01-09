@@ -8,18 +8,16 @@ const game = {
   'score': 0,
   'scoreMultiplier': 2,
   'goalColor': "",
-  // 'goalNumber': 30,
   'goalNumber': 30,
   'goalCurrentNumber': 0,
   'goalTotalNumber': 0,
-  // 'round': 1,
-  'round': 2,
+  'round': 1,
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(66, 213, 198)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
   // 'roundTime': 30,
   'time': 0,
-  'roundTime': 5,
-  'roundTimeStart': 5,
+  'roundTime': 30,
+  'roundTimeStart': 30,
   'matchArray': [],
   'animationTime': 1200,
   'gameOver': false,
@@ -223,10 +221,6 @@ const updateSquareColors = () => {
 
 /* ------ Starts the game timer ------ */
 /* Value is stored in game.time */
-// When the time is up, send to gameController()
-// If Goal has been met, new round should begin with increasing difficulty
-// If Goal has not been met, game over screen with score.
-/* track what the old round is and the new round to clear the interval */
 const setTimer = (newRound) => {
   // function to run , time interval
   const timer = setInterval(() => {
@@ -265,7 +259,7 @@ const gameController = () => {
     }
     endcard();
     game.gameOver = true;
-    // break;
+
   } else if (game.round === 1 && game.time === 0) {
     if (game.gameOver) {
       return;
@@ -273,21 +267,23 @@ const gameController = () => {
     endcard();
     game.gameOver = true;
 
-    // break;
   } else if (game.goalCurrentNumber <= 0 && game.time > 0) {
     setTimer(true);
     game.scoreMultiplier++;
-    //wrap this in a conditional that checks the width & height, and only runs if it's greater than, game.widthMin game.widthMax
-    // game.boardWidth--;
-    // game.boardHeight--;
+
+    /* Limiting the amount that the gameboard shrinks  */
     if (game.boardWidth > game.boardWidthMin) {
       game.boardWidth--;
     }
     if (game.boardHeight > game.boardHeightMin) {
       game.boardHeight--;
     }
+
+    /* this runs every time */
     game.round++;
     game.time = game.roundTime;
+
+    /* this adds colors if there are anymore colors in the colors array */
     if (game.numOfColors < game.colors.length) {
       game.numOfColors++;
     };
@@ -295,18 +291,13 @@ const gameController = () => {
     $(".rows").remove();
     generateGameBoard();
     updateGameGoalColor();
-  }
-  // // check for endgame condition, if game.round > 1, success endcard, include game.goalTotalNumber & game.round in the endcard
-  // // // if 1 then failure endcard, include difference between game.goalNumber & game.goalCurrentNumber in the endcard text.
-  // if game.goalCurrentNumber === 0
-  // // reset timer, update game.goal color, add one to game.scoreMultiplier, remove 1 from game.boardWidth & game.boardHeight, add 1 to game.round, generate gameboard()  
+  };
 };
 
 const endcard = () => {
   console.log('GAME OVER')
   /* creating background gradient */
   $('body').css('background-image', 'linear-gradient(to bottom, #99fcff, #7965fa)');
-  // $('body').css('height', '100vh');
 
   /* removing game elements */
   $("header").remove();
@@ -329,14 +320,16 @@ const endcard = () => {
   }
   /* shared content for both endcards */
   // TODO change share anchor to replay button
-  const $endcardScore = $(`<h2><span>Final Score: ${game.score}</span></h2>`);
+  const $endcardScore = $(`<h2><span>Final Score:</span></h2>
+  <h1><span> ${game.score}</span></h1>`);
   $(".endcard").append($endcardScore);
   const $row = $('<div class = "row"></div>');
-  const $share = $('<a class="share" href="#">share</a>');
-  const $contact = $('<a class="contact" href="https://www.linkedin.com/in/jasontoups/">contact</a>');
+  const $replay = $('<button class="replay">replay</a>');
+  const $contact = $('<a class="contact" href="https://www.linkedin.com/in/jasontoups/" target="_blank">contact</a>');
   $(".endcard").append($row);
-  $(".row").append($share);
+  $(".row").append($replay);
   $(".row").append($contact);
+  $('.row').on('click', '.replay', replay);
 };
 
 /* TODO breakout updating the game goal color into its own function so i can call it for a new round */

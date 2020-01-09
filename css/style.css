@@ -73,15 +73,17 @@ button {
 }
 
 a {
-  color: white;
   text-decoration: none;
+  margin: auto;
+  margin-bottom: 5px;
+  color: white;
   font-size: 20px;
   width: 125px;
   height: 45px;
   padding: 1%;
   border-radius: 26px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  padding-bottom: 17px;
+  box-sizing: border-box;
 }
 
 a:hover {
@@ -97,13 +99,15 @@ a:hover {
 }
 
 /* turn these shares to replay */
-.share {
+.replay {
   margin: 5px;
   box-shadow: inset 0 -6px 3px 0 rgba(0, 75, 153, 0.5), inset 0 7px 5px 0 rgba(245, 208, 250, 0.55);
   background-image: linear-gradient(to bottom, #a799ff, #7965fa);
+  padding-bottom: 20px;
+  box-sizing: border-box;
 }
 
-.share:hover {
+.replay:hover {
   color: white;
   text-decoration: none;
   filter: brightness(110%);
@@ -113,7 +117,7 @@ a:hover {
 .tutorial {
   color: rgb(82, 82, 82);
   position: absolute;
-  padding: 5px;
+  padding: 3px;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
