@@ -11,7 +11,7 @@ const game = {
   'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(64, 224, 208)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
   'time': 0,
-  'roundTime': 10,
+  'roundTime': 30,
   'matchArray': [],
   'animationTime': 1200,
   'gameOver': false,
@@ -301,17 +301,17 @@ const endcard = () => {
   if (game.round > 1 && game.time === 0) {
     const $endcardHeader = $('<h1>You Win!</h1>');
     $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<p>You crushed ${game.goalTotalNumber} goal blocks, in ${game.round} rounds!</p>`);
+    const $endcardBody = $(`<h2>You crushed ${game.goalTotalNumber} goal blocks in ${game.round} rounds!</h2>`);
     $(".endcard").append($endcardBody);
+    const $endcardScore = $(`<h1>Score: ${game.score}</h1>`);
+    $(".endcard").append($endcardScore);
   } else {
     const $endcardHeader = $('<h1>Try Again!</h1>');
     $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<p>You were ${game.goalNumber - game.goalTotalNumber} blocks away from winning. Play again to get to round 2.</p>`);
+    const $endcardBody = $(`<h2>You were ${game.goalNumber - game.goalTotalNumber} blocks away from winning.<br> 
+    Play again to get to round 2.</h2>`);
     $(".endcard").append($endcardBody);
-
-
   }
-
 };
 
 /* breakout updating the game goal color into its own function so i can call it for a new round */
