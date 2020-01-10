@@ -25,16 +25,16 @@ Outside of the requirements for the project provided by GA, I wanted a game that
 
 ##User Stories
 
-1. 	Tutorial screen appears with a CTA Button.
-2. 	User selects CTA button and game starts.
-3. 	Gameboard and UI appears.
-4. 	The UI has the name of the game, the game timer, the score, the match goal, with a colored block representing the goal.
-5. 	User selects a colored game block to match the color of another game block 1 space away to the cardinal directions; top, down, left or right.
-6. 	Matched colors can only be connected by the cardinal directions. 
-7. 	If the swapped pieces make a match of at least two of the same colors connecting them, the pieces will be matched, and tallied up.
-8. 	New colored pieces will appear where the matched colored pieces were removed.
-9. 	At any point, a randomize button can be pressed to randomize all the colors on the board.
-10. 	When the timer is done, the gameboard and UI disappears and an endcard appears with the final score, the goal counter, and a message congratulating the player if they met the goal, or asking them to try again if they didn’t meet the goal.  There will be a share and contact info button on it.
+1. Tutorial screen appears with a CTA Button.
+2. User selects CTA button and game starts.
+3. Gameboard and UI appears.
+4. The UI has the name of the game, the game timer, the score, the match goal, with a colored block representing the goal.
+5. User selects a colored game block to match the color of another game block 1 space away to the cardinal directions; top, down, left or right.
+6. Matched colors can only be connected by the cardinal directions. 
+7. If the swapped pieces make a match of at least two of the same colors connecting them, the pieces will be matched, and tallied up.
+8. New colored pieces will appear where the matched colored pieces were removed.
+9. At any point, a randomize button can be pressed to randomize all the colors on the board.
+10. When the timer is done, the gameboard and UI disappears and an endcard appears with the final score, the goal counter, and a message congratulating the player if they met the goal, or asking them to try again if they didn’t meet the goal.  There will be a share and contact info button on it.
 
 ##Technologies Used
 
