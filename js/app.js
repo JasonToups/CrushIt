@@ -6,6 +6,7 @@ const game = {
   'boardHeightStart': 9,
   'boardHeightMin': 5,
   'score': 0,
+  'highScore': 0,
   'scoreMultiplier': 2,
   'goalColor': "",
   'goalNumber': 30,
@@ -21,18 +22,19 @@ const game = {
   'matchArray': [],
   'animationTime': 1200,
   'gameOver': false,
+  'allTimeHighScore': parseInt(localStorage.getItem('allTimeHighScore')) || 0
 }
 
 const createRandomButton = () => {
   console.log('Randomize Board');
   const $randomize = $('<button class="randomize">Randomize</button>');
   $(".random").append($randomize);
+  $('.random').on('click', '.randomize', () => {
+    console.log('Randomize');
+    updateSquareColors();
+  });
 };
 
-$('.random').on('click', '.randomize', () => {
-  console.log('Randomize');
-  updateSquareColors();
-});
 
 /* -------- Handles Touch Event -------- */
 const handlePoke = (event) => {
@@ -57,8 +59,6 @@ It will loop through the array and check for the background color of each index 
 If the index color is the same as the goal color, then each block point will be multiplied by the game.pointMultiplier
 Otherwise each block is worth 1 point.*/
 
-/* add a class , then Set timeout for time, then remove the class before randomizing the color or tallying the score.  */
-
 const scoring = () => {
   if (game.matchArray.length >= 2) {
     for (let i = 0; i < game.matchArray.length; i++) {
@@ -69,24 +69,19 @@ const scoring = () => {
         game.goalCurrentNumber--;
         game.goalTotalNumber++;
         $('#goalNumber').text(`${game.goalCurrentNumber}`);
+        // removing the dotted boarder class and delaying it by the game.animationTime
         $(game.matchArray[i]).removeClass('match');
-        // removing the dotted boarder class
-        // removing the animation class
         setTimeout(() => { $(current).css('background-color', applyRandomColor()); }, game.animationTime);
-        // applyRandomColor(game.matchArray[i]);
-        // $(game.matchArray[i]).css('background-color', applyRandomColor());
       } else {
         game.score++;
         $('#scoreNumber').text(`${game.score}`);
         $(game.matchArray[i]).removeClass('match');
         setTimeout(() => { $(current).css('background-color', applyRandomColor()); }, game.animationTime);
-        // $(game.matchArray[i]).css('background-color', applyRandomColor());
       }
     }
   } else {
     for (let j = 0; j <= game.matchArray.length; j++) {
       $(game.matchArray[j]).removeClass('match');
-      // $(game.matchArray[j]).css('background-color', applyRandomColor());
     }
   }
   game.matchArray = [];
@@ -96,17 +91,13 @@ const scoring = () => {
 /* -------- Checking squares for Matches to fill the game.matchArray -------- */
 /* A Recursive function that validates the colors in all cardinal directions of the current square, and returns an array of matchable items to the game object*/
 
-//POSSIBLE UPDATE - This function should accept 2 parameters, so i can pass in game.matchArray1, game.matchArray2, and pass in the class name i plan on appending to the div to control the recursive function, .match1, .match2
 const validateMatchArray = () => {
-  // console.log('Validate Match Array Function Start');
   let matchArray = game.matchArray;
 
   for (let i = 0; i <= matchArray.length; i++) {
-    // console.log(`Match Array index ${i}`);
+    /* Finding the parent row number of the current square and the index of the current square in the row */
     let parent = parseInt($(matchArray[i]).parent().attr('id'));
     let currentIndex = $(matchArray[i]).index();
-    // console.log(`rows ${parent}`);
-    // console.log(`column ${currentIndex}`);
 
     /* Getting the neighboring squares in 4 cardinal directions */
     let currentSquare = matchArray[i];
@@ -159,15 +150,13 @@ const validateMatchArray = () => {
       }
     }
     if (i === game.matchArray.length - 1) {
-      // console.log('Validate Match Array Function End');
-      // console.log(game.matchArray);
+      /* the end of validateMatchArray */
       scoring();
       return game.matchArray;
     }
 
   }
   /* I don't think this section ever runs */
-  // console.log(game.matchArray);
   scoring();
   return game.matchArray;
 };
@@ -212,7 +201,7 @@ const generateGameBoard = () => {
   }
 }
 
-/* This randomizes all .square colors */
+/* This randomizes all .square colors on the gameboard*/
 const updateSquareColors = () => {
   $('.square').each(function () {
     $(this).css('background-color', applyRandomColor());
@@ -222,7 +211,6 @@ const updateSquareColors = () => {
 /* ------ Starts the game timer ------ */
 /* Value is stored in game.time */
 const setTimer = (newRound) => {
-  // function to run , time interval
   const timer = setInterval(() => {
     if (newRound) {
       clearInterval(timer);
@@ -230,7 +218,6 @@ const setTimer = (newRound) => {
     }
     if (game.time === 0) {
       // used to stop setInterval
-      // game.gameOver = true;
       console.log('Game Time === 0');
       clearInterval(timer);
       gameController();
@@ -238,7 +225,7 @@ const setTimer = (newRound) => {
     }
     updateTime();
     if (game.time > 0) game.time--;
-    console.log(game.time);
+    // console.log(game.time);
   }, 1000);
 }
 
@@ -294,7 +281,17 @@ const gameController = () => {
   };
 };
 
+/* ------ CREATING THE ENDCARD ------- */
 const endcard = () => {
+  let allTime = false;
+  if (game.score > game.highScore) {
+    game.highScore = game.score;
+    if (game.score > game.allTimeHighScore) {
+      localStorage.setItem("allTimeHighScore", game.score);
+      allTime = true;
+      game.allTimeHighScore = game.score;
+    }
+  }
   console.log('GAME OVER')
   /* creating background gradient */
   $('body').css('background-image', 'linear-gradient(to bottom, #99fcff, #7965fa)');
@@ -318,11 +315,26 @@ const endcard = () => {
     <span>Play again</span> to get to round 2.</p>`);
     $(".endcard").append($endcardBody);
   }
+
   /* shared content for both endcards */
-  // TODO change share anchor to replay button
-  const $endcardScore = $(`<h2><span>Final Score:</span></h2>
-  <h1><span> ${game.score}</span></h1>`);
-  $(".endcard").append($endcardScore);
+  // check if game.highScore > game.allTimeHighScore
+  if (game.score === game.highScore) {
+    if (game.score === game.allTimeHighScore) {
+      const $endcardScore = $(`<h1><span>You CRUSHED the All Time high score!</span></h1><h2><span>Final Score:</span></h2>
+      <h1><span> ${game.score}</span></h1>`);
+      $(".endcard").append($endcardScore);
+
+    } else {
+      const $endcardScore = $(`<h2><span>You beat the high score!</span></h2><h2><span>Final Score:</span></h2>
+      <h1><span> ${game.score}</span></h1>`);
+      $(".endcard").append($endcardScore);
+    }
+
+  } else {
+    const $endcardScore = $(`<p>You were <span>${game.highScore - game.score}</span> points away from the High Score</p><h2><span>Final Score:</span></h2>
+    <h1><span> ${game.score}</span></h1>`);
+    $(".endcard").append($endcardScore);
+  }
   const $row = $('<div class = "row"></div>');
   const $replay = $('<button class="replay">replay</a>');
   const $contact = $('<a class="contact" href="https://www.linkedin.com/in/jasontoups/" target="_blank">contact</a>');
@@ -332,7 +344,6 @@ const endcard = () => {
   $('.row').on('click', '.replay', replay);
 };
 
-/* TODO breakout updating the game goal color into its own function so i can call it for a new round */
 const updateGameGoalColor = () => {
   let color = applyRandomColor();
   game.goalColor = color;
@@ -353,7 +364,7 @@ const tutorial = () => {
   <p>before the <span>${game.roundTime} second Timer</span> runs out!</p>`);
   $(".tutorial").append($tutorialBody);
 
-  console.log('Start button created');
+  console.log('Tutorial screen created');
   const $start = $('<button class="start">Start!</button>');
   $(".tutorial").append($start);
   $('.start').on('click', () => {
@@ -422,6 +433,7 @@ const replay = () => {
   <div class="endcard">
   </div>`);
   $("body").prepend($gameboard);
+
   gameStart();
 }
 
