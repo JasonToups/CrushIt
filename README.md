@@ -3,7 +3,7 @@ A block crusher game built in JS for General Assembly Software Engineering Bootc
 
 ## Overview
 
-Crush it is a procedural block crushing game, where the player taps squares to make matches of the same color. If the match is the same color as the goal color, the goal total is reduced by the number of blocks matched. 
+Crush It is a *procedural block crushing game*, where the player taps squares to make matches of the same color. If the match is the same color as the goal color, the *Goal Block Total* is reduced by the number of blocks matched. 
 
 The goal for each round is to complete the goal number requirement. 
 
