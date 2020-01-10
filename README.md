@@ -76,6 +76,7 @@ All along I wanted the game to be formatted to **play on mobile**, so I let that
 ## Installation Instructions
 
 The game is *playable from the web*, click the following link to play on **desktop** or **mobile**.
+
 <a href="https://jasontoups.github.io/CrushIt-BlockCrusherGame/">Crush It - Block Crushing Game</a>
 
 ## Unsolved Problems
