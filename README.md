@@ -3,6 +3,7 @@ A block crusher game built in JS for General Assembly Software Engineering Bootc
 repo name CrushIt-BlockCrusherGame
 
 ##Overview
+
 Crush it is a procedural block crushing game, where the player taps squares to make matches of the same color. If the match is the same color as the goal color, the goal total is reduced by the number of blocks matched. 
 
 The goal for each round is to complete the goal number requirement. 
@@ -12,6 +13,7 @@ If the goal number has been reached, the next round starts, the timer resets, th
 The board size reduction happens for every round. On the even rounds the the width is reduced, and on the odd rounds the height is reduced.
 
 ##Project Goals & Purpose
+
 I built this for my first project in the General Assembly SF Software Engineering Immersive program in a week from January 3rd 2020, to the 10th. 
 
 Outside of the requirements for the project provided by GA, I wanted a game that met the following product requirements:
@@ -22,6 +24,7 @@ Outside of the requirements for the project provided by GA, I wanted a game that
 - Procedural difficulty ramping, so the game would quickly become more difficult over time
 
 ##User Stories
+
 1. 	Tutorial screen appears with a CTA Button.
 2. 	User selects CTA button and game starts.
 3. 	Gameboard and UI appears.
@@ -34,11 +37,13 @@ Outside of the requirements for the project provided by GA, I wanted a game that
 10. 	When the timer is done, the gameboard and UI disappears and an endcard appears with the final score, the goal counter, and a message congratulating the player if they met the goal, or asking them to try again if they didn’t meet the goal.  There will be a share and contact info button on it.
 
 ##Technologies Used
+
 -HTML, CSS, JS, JQuery
 -Animate CSS
 -Bootstrap
 
 ##Project Approach
+
 I first designed a storyboard to guide the engineering process and detail the requirements for the project, and to create mockups of the final product.
 
 I designed the storyboard and mockups in Sketch, then exported the mockups to Zeplin to get the CSS code for the buttons and views.
@@ -58,13 +63,16 @@ Once I got that working, I gained momentum on the rest of the project pretty qui
 All along I wanted the game to be formatted to play on mobile, so I let that guide all of the design & engineering decisions along the way, but I couldn’t preview the game on my phone until I published it to Github pages. Then I was able to update my CSS a bit, and change the game.boardWidthStart & game.boardHeightStart values to accommodate the much smaller screen size from the desktop view.
 
 ##Installation Instructions
+
 The game is playable from the web, click this link to play on desktop or mobile.
 <a href="https://jasontoups.github.io/CrushIt-BlockCrusherGame/">[Crush It - Block Crushing Game]</a>
 
 ##Unsolved Problems
+
 The animation timing for the matches could be improved, and I could iterate on the mobile view some more. The styling of the borders on the rounded corners of the UI and tutorial card breakdown on mobile. So I would update that.
 
 ##Mockups & Storyboard
+
 If you would like to check out my storyboard for this, it’s included in the Design folder. 
 <a href="/design/CrushIt-Storyboard.pdf">[Crush_It _Storyboard.pdf]</a>
 
