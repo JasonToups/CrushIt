@@ -13,7 +13,7 @@ const game = {
   'goalCurrentNumber': 0,
   'goalTotalNumber': 0,
   'round': 1,
-  'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(66, 213, 198)', 'rgb(238, 130, 238)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
+  'colors': ['rgb(100, 149, 237)', 'rgb(143, 188, 143)', 'rgb(238, 130, 238)', 'rgb(66, 213, 198)', 'rgb(255, 215, 0)', 'rgb(255, 99, 71)'],
   'numOfColors': 3,
   // 'roundTime': 30,
   'time': 0,
@@ -27,7 +27,7 @@ const game = {
 
 const createRandomButton = () => {
   console.log('Randomize Board');
-  const $randomize = $('<button class="randomize">Randomize</button>');
+  const $randomize = $('<button class="randomize animated pulse infinite">Randomize</button>');
   $(".random").append($randomize);
   $('.random').on('click', '.randomize', () => {
     console.log('Randomize');
@@ -70,8 +70,14 @@ const scoring = () => {
         game.goalTotalNumber++;
         $('#goalNumber').text(`${game.goalCurrentNumber}`);
         // removing the dotted boarder class and delaying it by the game.animationTime
+        $(".goal-square").addClass('highlight animated heartBeat');
+        setTimeout(() => {
+          $(".goal-square").removeClass('highlight animated heartBeat');
+        }, game.animationTime)
+
         $(game.matchArray[i]).removeClass('match');
         setTimeout(() => { $(current).css('background-color', applyRandomColor()); }, game.animationTime);
+
       } else {
         game.score++;
         $('#scoreNumber').text(`${game.score}`);
@@ -302,30 +308,18 @@ const endcard = () => {
   $(".squares").remove();
   $(".randomize").remove();
 
-  /* checking winning or losing conditions to display different endcards */
-  if (game.round > 1 && game.time === 0) {
-    const $endcardHeader = $('<h1><span>You Win!</span></h1>');
-    $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<p>You crushed<br><span>${game.goalTotalNumber}</span> goal blocks<br> in <span>${game.round} rounds!<span></p>`);
-    $(".endcard").append($endcardBody);
-  } else {
-    const $endcardHeader = $('<h1><span>Try Again!</span></h1>');
-    $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<p>You were <br><span>${game.goalNumber - game.goalTotalNumber} blocks</span><br>away from winning.<br> 
-    <span>Play again</span> to get to round 2.</p>`);
-    $(".endcard").append($endcardBody);
-  }
 
-  /* shared content for both endcards */
+
+  /* checking winning or losing conditions to display different endcards */
   // check if game.highScore > game.allTimeHighScore
   if (game.score === game.highScore) {
     if (game.score === game.allTimeHighScore) {
-      const $endcardScore = $(`<h1><span>You CRUSHED the All Time high score!</span></h1><h2><span>Final Score:</span></h2>
+      const $endcardScore = $(`<h1><span>You CRUSHED the All-Time High Score!</span></h1><h2><span>Final Score:</span></h2>
       <h1><span> ${game.score}</span></h1>`);
       $(".endcard").append($endcardScore);
 
     } else {
-      const $endcardScore = $(`<h2><span>You beat the high score!</span></h2><h2><span>Final Score:</span></h2>
+      const $endcardScore = $(`<h1><span>You beat the High Score!</span></h1><h2><span>final score:</span></h2>
       <h1><span> ${game.score}</span></h1>`);
       $(".endcard").append($endcardScore);
     }
@@ -335,6 +329,23 @@ const endcard = () => {
     <h1><span> ${game.score}</span></h1>`);
     $(".endcard").append($endcardScore);
   }
+
+  if (game.round > 1 && game.time === 0) {
+    // const $endcardHeader = $('<h1><span>You Win!</span></h1>');
+    // $(".endcard").append($endcardHeader);
+    const $endcardBody = $(`<p>You crushed<br><span>${game.goalTotalNumber}</span> Goal Blocks<br> in <span>${game.round} rounds!<span></p>`);
+    $(".endcard").append($endcardBody);
+  } else {
+    const $endcardHeader = $('<h1><span>Try Again!</span></h1>');
+    $(".endcard").append($endcardHeader);
+    const $endcardBody = $(`<p>You were <br><span>${game.goalNumber - game.goalTotalNumber} blocks</span><br>away from winning.<br> 
+    <span>Play again</span> to get to <span>Round 2</span>.</p>`);
+    $(".endcard").append($endcardBody);
+  }
+
+
+
+
   const $row = $('<div class = "row"></div>');
   const $replay = $('<button class="replay">replay</a>');
   const $contact = $('<a class="contact" href="https://www.linkedin.com/in/jasontoups/" target="_blank">contact</a>');
