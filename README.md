@@ -3,13 +3,19 @@ A block crusher game built in JS for General Assembly Software Engineering Bootc
 
 ## Overview
 
-Crush It is a *procedural block crushing game*, where the player taps squares to make matches of the same color. If the match is the same color as the goal color, the *Goal Block Total* is reduced by the number of blocks matched. 
+Crush It is a *procedural block crushing game*, where the player taps squares to make *matches* of the same color. If the match is the same color as the Goal Block color, the *Goal Block Total* is reduced by the number of blocks matched. 
 
-The goal for each round is to complete the goal number requirement. 
+The goal for each round is to complete the *Goal Block Total* number requirement. 
 
-If the goal number has been reached, the next round starts, the timer resets, the board size is reduced, the goal color score multiplier goes up, and another color is added to the board. The difficulty increases for each round, within limits to the minimum board size and amount of colors added.
+If the Goal Block Total has been reached, the *next round* starts, and the following actions fire:
+- the timer resets
+- the board size is reduced
+- the goal color score multiplier goes up
+- another color is added to the board
 
-The board size reduction happens for every round. On the even rounds the the width is reduced, and on the odd rounds the height is reduced.
+The *difficulty increases* for each round, *within limits* to the minimum board size and amount of colors added.
+
+The board size reduction happens for every round. On the *even* rounds the the *width* is reduced, and on the *odd* rounds the *height* is reduced.
 
 ## Project Goals & Purpose
 
