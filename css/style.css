@@ -117,14 +117,15 @@ a:hover {
 /* ------------- TUTORIAL ------------- */
 .tutorial {
   color: rgb(82, 82, 82);
-  position: absolute;
+  /* position: absolute; */
+  position: relative;
   padding: 3px;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   font-size: 23px;
-  width: auto;
+  /* width: auto; */
   height: auto;
   margin-top: -10px;
   margin-bottom: 10px;
