@@ -1,10 +1,19 @@
 const game = {
-  'boardWidth': 7,
-  'boardWidthStart': 7,
+  /* DESKTOP GAMEBOARD DIMENSIONS */
+  'boardWidth': 0,
+  'boardWidthStart': 6,
   'boardWidthMin': 4,
-  'boardHeight': 8,
-  'boardHeightStart': 8,
+  'boardHeight': 0,
+  'boardHeightStart': 9,
   'boardHeightMin': 5,
+  /* MOBILE GAMEBOARD DIMENSIONS */
+  // 'boardWidth': 7,
+  // 'boardWidthStart': 7,
+  // 'boardWidthMin': 4,
+  // 'boardHeight': 8,
+  // 'boardHeightStart': 8,
+  // 'boardHeightMin': 5,
+  /* SCORING */
   'score': 0,
   'highScore': 0,
   'scoreMultiplier': 2,
@@ -411,6 +420,8 @@ const ui = () => {
 
 const gameStart = () => {
   game.time = game.roundTime;
+  game.boardWidth = game.boardWidthStart;
+  game.boardHeight = game.boardHeightStart;
   $(".tutorial").remove();
   setTimer();
   ui();

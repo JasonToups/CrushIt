@@ -201,9 +201,9 @@ a:hover {
 }
 
 .square {
-  width: 55px;
-  height: 55px;
-  margin: 5px;
+  width: 50px;
+  height: 50px;
+  margin: 3px;
   border-radius: 7px;
   box-shadow: 1px 2px 2px 0 rgb(65, 64, 64), inset 4px 7px 10px 0 rgba(255, 255, 255, 0.65);
 }
