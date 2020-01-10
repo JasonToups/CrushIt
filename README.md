@@ -3,14 +3,14 @@ A block crusher game built in JS for General Assembly Software Engineering Bootc
 
 ## Overview
 
-Crush It is a *procedural block crushing game*, where the player taps squares to make *matches* of the same color. If the match is the same color as the Goal Block color, the *Goal Block Total* is reduced by the number of blocks matched. 
+Crush It is a *procedural block crushing game*, where the player taps squares to make *matches* of the same color. If the match is the same color as the Goal Block color, the *Goal Block Total* is reduced by the number of blocks matched, and the matched blocks will be multiplied by the Goal Block Score Multiplier and added to the score..
 
 The goal for each round is to complete the *Goal Block Total* number requirement. 
 
 If the Goal Block Total has been reached, the *next round* starts, and the following actions fire:
 - the timer resets
 - the board size is reduced
-- the goal color score multiplier goes up
+- the goal block score multiplier goes up by 1
 - another color is added to the board
 
 The *difficulty increases* for each round, *within limits* to the minimum board size and amount of colors added.
@@ -37,7 +37,7 @@ Outside of the requirements for the project provided by GA, I wanted a game that
 5. User selects a *colored game block* to *match* the color of another game block 1 space away to the cardinal directions; top, down, left or right.
 6. Matched colors can only be connected by the cardinal directions. 
 7. If the blocks make a match of at least two of the same colors connecting them, the pieces will be matched, and tallied up.
-8. New colored blockd will appear where the matched colored blocks were removed.
+8. New colored blocks will appear where the matched colored blocks were removed.
 9. At any point, a randomize button can be pressed to randomize all the colors on the board.
 10. When the timer is done, the gameboard and UI disappears and an **endcard** appears with the final score, the goal counter, and a message congratulating the player if they met the goal, or asking them to try again if they didn’t meet the goal.  There will be a replay and contact info button on it.
 
