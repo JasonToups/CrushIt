@@ -1,14 +1,14 @@
 const game = {
   /* DESKTOP GAMEBOARD DIMENSIONS */
   'boardWidth': 0,
-  'boardWidthStart': 6,
+  'boardWidthStart': 12,
   'boardWidthMin': 4,
   'boardHeight': 0,
-  'boardHeightStart': 8,
+  'boardHeightStart': 10,
   'boardHeightMin': 5,
   /* MOBILE GAMEBOARD DIMENSIONS */
   // 'boardWidth': 7,
-  // 'boardWidthStart': 7,
+  // 'boardWidthStart': 6,
   // 'boardWidthMin': 4,
   // 'boardHeight': 8,
   // 'boardHeightStart': 8,
@@ -274,11 +274,14 @@ const gameController = () => {
     game.scoreMultiplier++;
 
     /* Limiting the amount that the gameboard shrinks  */
-    if (game.boardWidth > game.boardWidthMin) {
-      game.boardWidth--;
-    }
-    if (game.boardHeight > game.boardHeightMin) {
-      game.boardHeight--;
+    if (game.round % 2 === 0) {
+      if (game.boardWidth > game.boardWidthMin) {
+        game.boardWidth--;
+      }
+    } else {
+      if (game.boardHeight > game.boardHeightMin) {
+        game.boardHeight--;
+      }
     }
 
     /* this runs every time */
