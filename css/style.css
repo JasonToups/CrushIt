@@ -1,5 +1,5 @@
 body {
-  background-color: #EAEAEA;
+  background-color: rgb(155, 155, 155);
   font-family: 'Suez One', serif;
   text-align: center;
   height: 100vh;
@@ -17,9 +17,9 @@ header {
   box-shadow: 0 3px 0px grey;
   border-style: solid;
   border-width: 6px;
-  border-image-source: linear-gradient(to bottom, #ffc0c0, #979797 99%);
+  border-image-source: linear-gradient(to bottom, #ffc0c0, #c19090 99%);
   border-image-slice: 1;
-  background-image: linear-gradient(to bottom, #ffc0c0, #ffc0c0), linear-gradient(to bottom, #ffc0c0, #979797 99%);
+  background-image: linear-gradient(to bottom, #ffc0c0, #ffc0c0), linear-gradient(to bottom, #ffc0c0, #c19090 99%);
   background-origin: border-box;
   background-clip: content-box, border-box;
 
@@ -133,12 +133,11 @@ a:hover {
   box-shadow: 0 3px 0px grey;
   border-style: solid;
   border-width: 6px;
-  border-image-source: linear-gradient(to bottom, #ffc0c0, #979797 99%);
+  border-image-source: linear-gradient(to bottom, #ffc0c0, #c19090 99%);
   border-image-slice: 1;
-  background-image: linear-gradient(to bottom, #ffc0c0, #ffc0c0), linear-gradient(to bottom, #ffc0c0, #979797 99%);
+  background-image: linear-gradient(to bottom, #ffc0c0, #ffc0c0), linear-gradient(to bottom, #ffc0c0, #c19090 99%);
   background-origin: border-box;
   background-clip: content-box, border-box;
-
 }
 
 .tutorial p {
