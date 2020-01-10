@@ -1,9 +1,9 @@
 const game = {
   'boardWidth': 7,
-  'boardWidthStart': 10,
+  'boardWidthStart': 7,
   'boardWidthMin': 4,
-  'boardHeight': 9,
-  'boardHeightStart': 9,
+  'boardHeight': 8,
+  'boardHeightStart': 8,
   'boardHeightMin': 5,
   'score': 0,
   'highScore': 0,
