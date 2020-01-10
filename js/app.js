@@ -1,5 +1,5 @@
 const game = {
-  'boardWidth': 10,
+  'boardWidth': 7,
   'boardWidthStart': 10,
   'boardWidthMin': 4,
   'boardHeight': 9,

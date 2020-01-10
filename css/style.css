@@ -157,7 +157,7 @@ a:hover {
 /* ------------- ENDCARD ------------- */
 .endcard {
   color: rgb(63, 63, 63);
-  font-size: 30px;
+  font-size: 27px;
   margin: 0;
   position: absolute;
   top: 50%;
@@ -167,7 +167,7 @@ a:hover {
 }
 
 .endcard h1 {
-  font-size: 60px;
+  font-size: 50px;
   line-height: .9;
   padding-bottom: 7px;
 }
