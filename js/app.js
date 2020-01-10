@@ -4,7 +4,7 @@ const game = {
   'boardWidthStart': 6,
   'boardWidthMin': 4,
   'boardHeight': 0,
-  'boardHeightStart': 9,
+  'boardHeightStart': 8,
   'boardHeightMin': 5,
   /* MOBILE GAMEBOARD DIMENSIONS */
   // 'boardWidth': 7,
@@ -347,7 +347,7 @@ const endcard = () => {
   } else {
     const $endcardHeader = $('<h1><span>Try Again!</span></h1>');
     $(".endcard").append($endcardHeader);
-    const $endcardBody = $(`<p>You were <br><span>${game.goalNumber - game.goalTotalNumber} blocks</span><br>away from winning.<br> 
+    const $endcardBody = $(`<p>You were <span>${game.goalNumber - game.goalTotalNumber} Goal Blocks</span><br>away from winning.<br> 
     <span>Play again</span> to get to <span>Round 2</span>.</p>`);
     $(".endcard").append($endcardBody);
   }
