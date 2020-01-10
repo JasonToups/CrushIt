@@ -1,4 +1,4 @@
-# Crush It - Block Crusher
+# Crush It - Block Crusher Game
 A block crusher game built in JS for General Assembly Software Engineering Bootcamp in SF.
 
 ## Overview
