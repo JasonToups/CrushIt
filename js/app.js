@@ -1,18 +1,18 @@
 const game = {
   /* DESKTOP GAMEBOARD DIMENSIONS */
-  'boardWidth': 0,
-  'boardWidthStart': 12,
-  'boardWidthMin': 4,
-  'boardHeight': 0,
-  'boardHeightStart': 10,
-  'boardHeightMin': 5,
-  /* MOBILE GAMEBOARD DIMENSIONS */
-  // 'boardWidth': 7,
-  // 'boardWidthStart': 6,
+  // 'boardWidth': 0,
+  // 'boardWidthStart': 12,
   // 'boardWidthMin': 4,
-  // 'boardHeight': 8,
-  // 'boardHeightStart': 8,
+  // 'boardHeight': 0,
+  // 'boardHeightStart': 10,
   // 'boardHeightMin': 5,
+  /* MOBILE GAMEBOARD DIMENSIONS */
+  'boardWidth': 7,
+  'boardWidthStart': 6,
+  'boardWidthMin': 4,
+  'boardHeight': 8,
+  'boardHeightStart': 8,
+  'boardHeightMin': 5,
   /* SCORING */
   'score': 0,
   'highScore': 0,
