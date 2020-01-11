@@ -44,6 +44,7 @@ Outside of the requirements for the project provided by GA, I wanted a game that
 ## Technologies Used
 
 - HTML, CSS, JS, JQuery
+- Object Oriented Programming
 - DOM manipulation
 - Animate CSS
 - Bootstrap
