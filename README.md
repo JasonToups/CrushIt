@@ -1,6 +1,8 @@
 # Crush It - Block Crusher Game
 A block crusher game built in JS for General Assembly Software Engineering Bootcamp in SF.
 
+[Play Crush It!!! - Here!](https://jasontoups.github.io/CrushIt-BlockCrusherGame/)
+
 ## Overview
 
 Crush It is a *procedural block crushing game*, where the player taps squares to make *matches* of the same color. If the match is the same color as the Goal Block color, the *Goal Block Total* is reduced by the number of blocks matched, and the matched blocks will be multiplied by the Goal Block Score Multiplier and added to the score..
@@ -77,8 +79,6 @@ All along I wanted the game to be formatted to **play on mobile**, so I let that
 ## Installation Instructions
 
 The game is *playable from the web*, click the following link to play on **desktop** or **mobile**.
-
-<a href="https://jasontoups.github.io/CrushIt-BlockCrusherGame/">Crush It - Block Crushing Game</a>
 
 ## Unsolved Problems
 
