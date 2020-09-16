@@ -1,10 +1,10 @@
-# Crush It - Block Crusher Game
+# Crush It!!! - A Block Crusher Game
 
 [![Crush It - Block Crusher Game](https://github.com/JasonToups/CrushIt-BlockCrusherGame/blob/master/design/crushit-screenshot%20square%20small.jpg?raw=true)](https://jasontoups.github.io/CrushIt-BlockCrusherGame/)
 
 A block crusher game built in JS for General Assembly Software Engineering Bootcamp in SF.
 
-[Play Crush It!!! - Here!](https://jasontoups.github.io/CrushIt-BlockCrusherGame/)
+[Play Crush It!!! - Here!](https://jasontoups.github.io/CrushIt)
 
 ## Overview
 
