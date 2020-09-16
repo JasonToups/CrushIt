@@ -118,6 +118,7 @@ a:hover {
 .tutorial {
   color: rgb(82, 82, 82);
   position: relative;
+  max-width: 500px;
   padding: 20px;
   top: 50%;
   left: 50%;
